@@ -41,11 +41,15 @@ template <> struct JSIConverter<std::shared_ptr<rnwgpu::GPUBindGroupEntry>> {
         auto prop = value.getProperty(runtime, "resource");
         if (prop.isObject()) {
           auto obj = prop.getObject(runtime);
+          auto nativeState = obj.hasNativeState(runtime)
+                                 ? obj.getNativeState(runtime)
+                                 : nullptr;
           if (obj.hasNativeState<rnwgpu::GPUSampler>(runtime)) {
             result->sampler = obj.getNativeState<rnwgpu::GPUSampler>(runtime);
-          } else if (obj.hasNativeState<rnwgpu::GPUTextureView>(runtime)) {
-            result->textureView =
-                obj.getNativeState<rnwgpu::GPUTextureView>(runtime);
+          } else if (auto textureView =
+                         std::dynamic_pointer_cast<rnwgpu::GPUTextureView>(
+                             nativeState)) {
+            result->textureView = textureView;
           } else if (obj.hasNativeState<rnwgpu::GPUExternalTexture>(runtime)) {
             result->externalTexture =
                 obj.getNativeState<rnwgpu::GPUExternalTexture>(runtime);

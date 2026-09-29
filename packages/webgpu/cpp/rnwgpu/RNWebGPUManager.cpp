@@ -119,7 +119,6 @@ RNWebGPUManager::RNWebGPUManager(
   GPUShaderModule::installConstructor(*_jsRuntime);
   GPUSupportedLimits::installConstructor(*_jsRuntime);
   GPUTexture::installConstructor(*_jsRuntime);
-  GPUTextureView::installConstructor(*_jsRuntime);
   VideoFrame::installConstructor(*_jsRuntime);
   VideoPlayer::installConstructor(*_jsRuntime);
 

@@ -1,40 +1,29 @@
 #pragma once
 
 #include <string>
+#include <utility>
 
-#include "Unions.h"
-
-#include "NativeObject.h"
+#include "HybridGPUTextureViewSpec.hpp"
+#include "WebGPUObject.hpp"
 
 #include "webgpu/webgpu_cpp.h"
 
 namespace rnwgpu {
 
-namespace jsi = facebook::jsi;
-
-class GPUTextureView : public NativeObject<GPUTextureView> {
+class GPUTextureView
+    : public WebGPUObject<margelo::nitro::webgpu::HybridGPUTextureViewSpec> {
 public:
-  static constexpr const char *CLASS_NAME = "GPUTextureView";
+  GPUTextureView(wgpu::TextureView instance, std::string label)
+      : HybridObject(TAG), _instance(std::move(instance)),
+        _label(std::move(label)) {}
 
-  explicit GPUTextureView(wgpu::TextureView instance, std::string label)
-      : NativeObject(CLASS_NAME), _instance(instance), _label(label) {}
-
-public:
-  std::string getBrand() { return CLASS_NAME; }
-
-  std::string getLabel() { return _label; }
-  void setLabel(const std::string &label) {
+  std::string getLabel() override { return _label; }
+  void setLabel(const std::string &label) override {
     _label = label;
     _instance.SetLabel(_label.c_str());
   }
 
-  static void definePrototype(jsi::Runtime &runtime, jsi::Object &prototype) {
-    installGetter(runtime, prototype, "__brand", &GPUTextureView::getBrand);
-    installGetterSetter(runtime, prototype, "label", &GPUTextureView::getLabel,
-                        &GPUTextureView::setLabel);
-  }
-
-  inline const wgpu::TextureView get() { return _instance; }
+  const wgpu::TextureView get() { return _instance; }
 
 private:
   wgpu::TextureView _instance;
