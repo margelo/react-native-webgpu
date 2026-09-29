@@ -92,7 +92,6 @@ RNWebGPUManager::RNWebGPUManager(
   GPUBindGroupLayout::installConstructor(*_jsRuntime);
   GPUBuffer::installConstructor(*_jsRuntime);
   GPUCanvasContext::installConstructor(*_jsRuntime);
-  GPUCommandBuffer::installConstructor(*_jsRuntime);
   GPUCommandEncoder::installConstructor(*_jsRuntime);
   GPUCompilationInfo::installConstructor(*_jsRuntime);
   GPUCompilationMessage::installConstructor(*_jsRuntime);
