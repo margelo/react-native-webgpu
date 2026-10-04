@@ -45,6 +45,7 @@ target_sources(
   ../nitrogen/generated/shared/c++/HybridGPUSamplerSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUShaderModuleSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUTextureViewSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridImageBitmapSpec.cpp
   # Android-specific Nitrogen C++ sources
   
 )
