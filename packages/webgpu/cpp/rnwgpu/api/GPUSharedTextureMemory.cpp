@@ -112,8 +112,7 @@ jsi::Value GPUSharedTextureMemory::endAccess(jsi::Runtime &runtime,
     wgpu::SharedFence fence = state.fences[i];
     auto wrapper = std::make_shared<GPUSharedFence>(std::move(fence), "");
     jsi::Object entry(runtime);
-    entry.setProperty(runtime, "fence",
-                      GPUSharedFence::create(runtime, std::move(wrapper)));
+    entry.setProperty(runtime, "fence", wrapper->toObject(runtime));
     entry.setProperty(runtime, "signaledValue",
                       jsi::BigInt::fromUint64(runtime, state.signaledValues[i]));
     fences.setValueAtIndex(runtime, i, std::move(entry));
