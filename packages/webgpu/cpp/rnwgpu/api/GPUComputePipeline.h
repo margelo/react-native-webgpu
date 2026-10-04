@@ -2,54 +2,37 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 
-#include "Unions.h"
-
-#include "NativeObject.h"
+#include "GPUBindGroupLayout.h"
+#include "HybridGPUComputePipelineSpec.hpp"
+#include "WebGPUObject.hpp"
 
 #include "webgpu/webgpu_cpp.h"
 
-#include "GPUBindGroupLayout.h"
-
 namespace rnwgpu {
 
-namespace jsi = facebook::jsi;
-
-class GPUComputePipeline : public NativeObject<GPUComputePipeline> {
+class GPUComputePipeline
+    : public WebGPUObject<
+          margelo::nitro::webgpu::HybridGPUComputePipelineSpec> {
 public:
-  static constexpr const char *CLASS_NAME = "GPUComputePipeline";
+  GPUComputePipeline(wgpu::ComputePipeline instance, std::string label)
+      : HybridObject(TAG), _instance(std::move(instance)),
+        _label(std::move(label)) {}
 
-  explicit GPUComputePipeline(wgpu::ComputePipeline instance, std::string label)
-      : NativeObject(CLASS_NAME), _instance(instance), _label(label) {}
+  std::shared_ptr<margelo::nitro::webgpu::HybridGPUBindGroupLayoutSpec>
+  getBindGroupLayout(double index) override;
 
-public:
-  std::string getBrand() { return CLASS_NAME; }
-
-  std::shared_ptr<GPUBindGroupLayout> getBindGroupLayout(uint32_t index);
-
-  std::string getLabel() { return _label; }
-  void setLabel(const std::string &label) {
+  std::string getLabel() override { return _label; }
+  void setLabel(const std::string &label) override {
     _label = label;
     _instance.SetLabel(_label.c_str());
   }
 
-  static void definePrototype(jsi::Runtime &runtime, jsi::Object &prototype) {
-    installGetter(runtime, prototype, "__brand", &GPUComputePipeline::getBrand);
-    installMethod(runtime, prototype, "getBindGroupLayout",
-                  &GPUComputePipeline::getBindGroupLayout);
-    installGetterSetter(runtime, prototype, "label",
-                        &GPUComputePipeline::getLabel,
-                        &GPUComputePipeline::setLabel);
-  }
+  const wgpu::ComputePipeline get() { return _instance; }
 
-  inline const wgpu::ComputePipeline get() { return _instance; }
-
-  size_t getMemoryPressure() override {
-    // Compute pipelines contain compiled compute shader state and
-    // driver-specific optimized code
-    // Estimate: 16KB for a typical compute pipeline (single compute shader)
-    return 16 * 1024;
-  }
+protected:
+  size_t getExternalMemorySize() noexcept override { return 16 * 1024; }
 
 private:
   wgpu::ComputePipeline _instance;
