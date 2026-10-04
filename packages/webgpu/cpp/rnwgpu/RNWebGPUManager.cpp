@@ -101,7 +101,6 @@ RNWebGPUManager::RNWebGPUManager(
   GPUOutOfMemoryError::installConstructor(*_jsRuntime);
   GPUValidationError::installConstructor(*_jsRuntime);
   GPUUncapturedErrorEvent::installConstructor(*_jsRuntime);
-  GPUQuerySet::installConstructor(*_jsRuntime);
   GPUQueue::installConstructor(*_jsRuntime);
   GPURenderBundleEncoder::installConstructor(*_jsRuntime);
   GPURenderPassEncoder::installConstructor(*_jsRuntime);
