@@ -21,7 +21,8 @@ using margelo::nitro::Prototype;
 
 // Base for every WebGPU HybridObject: adds today's `__brand`, `toJSON` and
 // `toString()` on top of the nitrogen-generated `Spec`.
-template <typename Spec> class WebGPUObject : public Spec {
+template <typename Spec, bool HasBrand = true>
+class WebGPUObject : public Spec {
 public:
   std::string toString() override { return "[object " + this->getName() + "]"; }
 
@@ -31,7 +32,9 @@ protected:
   void loadHybridMethods() override {
     Spec::loadHybridMethods();
     this->registerHybrids(this, [](Prototype &prototype) {
-      prototype.registerHybridGetter("__brand", &HybridObject::getName);
+      if constexpr (HasBrand) {
+        prototype.registerHybridGetter("__brand", &HybridObject::getName);
+      }
       prototype.registerRawHybridMethod("toJSON", 0, &WebGPUObject::toJSON);
     });
   }
