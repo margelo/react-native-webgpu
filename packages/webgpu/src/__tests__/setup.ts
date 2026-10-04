@@ -54,6 +54,12 @@ interface GPUTestingContext {
   workletDeviceStress?: (
     device: GPUDevice,
   ) => Promise<{ jsOk: boolean; workletOk: boolean }>;
+  workletCrossRuntime?: (device: GPUDevice) => Promise<{
+    portedBrand: string;
+    portedLabel: string;
+    legacyBrand: string;
+    legacySize: number;
+  }>;
   // Native app harness only: a mounted probe view for the
   // drawElementImageToTexture spec (its React tag, its size in points and the
   // device pixel ratio). See apps/example/src/Tests.tsx.
