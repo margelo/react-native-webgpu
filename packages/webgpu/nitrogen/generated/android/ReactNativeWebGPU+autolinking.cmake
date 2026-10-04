@@ -38,6 +38,7 @@ target_sources(
   ../nitrogen/generated/shared/c++/HybridGPUCompilationInfoSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPURenderPipelineSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUSamplerSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUShaderModuleSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUTextureViewSpec.cpp
   # Android-specific Nitrogen C++ sources
   
