@@ -2,64 +2,39 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 
-#include "Unions.h"
-
-#include "NativeObject.h"
-
-#include "rnwgpu/async/AsyncTaskHandle.h"
-#include "rnwgpu/async/RuntimeContext.h"
+#include "HybridGPUShaderModuleSpec.hpp"
+#include "WebGPUObject.hpp"
 
 #include "webgpu/webgpu_cpp.h"
 
-#include "GPUCompilationInfo.h"
-
 namespace rnwgpu {
 
-namespace jsi = facebook::jsi;
-
-class GPUShaderModule : public NativeObject<GPUShaderModule> {
+class GPUShaderModule
+    : public WebGPUObject<margelo::nitro::webgpu::HybridGPUShaderModuleSpec> {
 public:
-  static constexpr const char *CLASS_NAME = "GPUShaderModule";
+  GPUShaderModule(wgpu::ShaderModule instance, std::string label)
+      : HybridObject(TAG), _instance(std::move(instance)),
+        _label(std::move(label)) {}
 
-  explicit GPUShaderModule(wgpu::ShaderModule instance,
-                           std::shared_ptr<async::RuntimeContext> async,
-                           std::string label)
-      : NativeObject(CLASS_NAME), _instance(instance), _async(async),
-        _label(label) {}
+  std::shared_ptr<margelo::nitro::Promise<
+      std::shared_ptr<margelo::nitro::webgpu::HybridGPUCompilationInfoSpec>>>
+  getCompilationInfo() override;
 
-public:
-  std::string getBrand() { return CLASS_NAME; }
-
-  async::AsyncTaskHandle getCompilationInfo(jsi::Runtime &runtime);
-
-  std::string getLabel() { return _label; }
-  void setLabel(const std::string &label) {
+  std::string getLabel() override { return _label; }
+  void setLabel(const std::string &label) override {
     _label = label;
     _instance.SetLabel(_label.c_str());
   }
 
-  static void definePrototype(jsi::Runtime &runtime, jsi::Object &prototype) {
-    installGetter(runtime, prototype, "__brand", &GPUShaderModule::getBrand);
-    installMethodWithRuntime(runtime, prototype, "getCompilationInfo",
-                             &GPUShaderModule::getCompilationInfo);
-    installGetterSetter(runtime, prototype, "label", &GPUShaderModule::getLabel,
-                        &GPUShaderModule::setLabel);
-  }
+  const wgpu::ShaderModule get() { return _instance; }
 
-  inline const wgpu::ShaderModule get() { return _instance; }
-
-  size_t getMemoryPressure() override {
-    // Estimate memory usage for compiled shader module
-    // Shaders can vary widely, but a reasonable estimate is 8-16KB for typical
-    // shaders Complex shaders (with many uniforms, textures, or computations)
-    // can be much larger
-    return 12 * 1024; // 12KB estimate for average shader
-  }
+protected:
+  size_t getExternalMemorySize() noexcept override { return 12 * 1024; }
 
 private:
   wgpu::ShaderModule _instance;
-  std::shared_ptr<async::RuntimeContext> _async;
   std::string _label;
 };
 
