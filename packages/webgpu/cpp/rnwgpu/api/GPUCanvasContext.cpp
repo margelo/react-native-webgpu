@@ -45,8 +45,8 @@ std::shared_ptr<GPUTexture> GPUCanvasContext::getCurrentTexture() {
   // lazily when they changed. Sizes are clamped to 1 so a canvas that has not
   // been laid out yet (0x0) keeps working.
   auto prevSize = _surfaceInfo->getConfig();
-  auto width = std::max(1, _canvas->getWidth());
-  auto height = std::max(1, _canvas->getHeight());
+  auto width = std::max(1, static_cast<int>(_canvas->getWidth()));
+  auto height = std::max(1, static_cast<int>(_canvas->getHeight()));
   auto sizeHasChanged = prevSize.width != static_cast<uint32_t>(width) ||
                         prevSize.height != static_cast<uint32_t>(height);
   if (sizeHasChanged) {
