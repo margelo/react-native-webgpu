@@ -12,6 +12,10 @@ export const examples = [
     title: "🧪 E2E Tests",
   },
   {
+    screen: "NitroPort",
+    title: "🧬 Nitro Port",
+  },
+  {
     screen: "HelloTriangle",
     title: "🔺 Hello Triangle",
   },

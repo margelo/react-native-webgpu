@@ -16,6 +16,7 @@ import {
   Cubemap,
 } from "./Cube";
 import { HelloTriangle, HelloTriangleMSAA } from "./Triangle";
+import { NitroPort } from "./NitroPort";
 import { ImageBlur } from "./ImageBlur";
 import { RenderBundles } from "./RenderBundles";
 import { ABuffer } from "./ABuffer";
@@ -73,6 +74,7 @@ function App() {
           screenOptions={{ cardStyle: { flex: 1 } }}
         >
           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="NitroPort" component={NitroPort} />
           <Stack.Screen name="HelloTriangle" component={HelloTriangle} />
           <Stack.Screen
             name="HelloTriangleMSAA"
