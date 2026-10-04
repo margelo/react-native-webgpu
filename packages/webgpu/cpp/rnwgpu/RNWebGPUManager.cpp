@@ -104,7 +104,6 @@ RNWebGPUManager::RNWebGPUManager(
   GPUUncapturedErrorEvent::installConstructor(*_jsRuntime);
   GPUQuerySet::installConstructor(*_jsRuntime);
   GPUQueue::installConstructor(*_jsRuntime);
-  GPURenderBundle::installConstructor(*_jsRuntime);
   GPURenderBundleEncoder::installConstructor(*_jsRuntime);
   GPURenderPassEncoder::installConstructor(*_jsRuntime);
   GPUSharedFence::installConstructor(*_jsRuntime);
