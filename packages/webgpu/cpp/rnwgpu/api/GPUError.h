@@ -1,35 +1,24 @@
 #pragma once
 
 #include <string>
+#include <utility>
 
-#include "NativeObject.h"
+#include "HybridGPUErrorSpec.hpp"
+#include "WebGPUObject.hpp"
 
 namespace rnwgpu {
 
-namespace jsi = facebook::jsi;
-
-class GPUError : public NativeObject<GPUError> {
+template <typename Spec> class GPUErrorImpl : public WebGPUObject<Spec> {
 public:
-  static constexpr const char *CLASS_NAME = "GPUError";
+  explicit GPUErrorImpl(std::string message)
+      : HybridObject(Spec::TAG), _message(std::move(message)) {}
 
-  explicit GPUError(std::string message)
-      : NativeObject(CLASS_NAME), _message(std::move(message)) {}
+  std::string getMessage() override { return _message; }
 
-public:
-  std::string getBrand() { return CLASS_NAME; }
-  std::string getMessage() { return _message; }
-
-  static void definePrototype(jsi::Runtime &runtime, jsi::Object &prototype) {
-    installGetter(runtime, prototype, "__brand", &GPUError::getBrand);
-    installGetter(runtime, prototype, "message", &GPUError::getMessage);
-  }
-
-protected:
-  // Protected constructor for subclasses
-  GPUError(const char *className, std::string message)
-      : NativeObject(className), _message(std::move(message)) {}
-
+private:
   std::string _message;
 };
+
+using GPUError = GPUErrorImpl<margelo::nitro::webgpu::HybridGPUErrorSpec>;
 
 } // namespace rnwgpu

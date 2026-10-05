@@ -95,11 +95,7 @@ RNWebGPUManager::RNWebGPUManager(
   GPUComputePassEncoder::installConstructor(*_jsRuntime);
   GPUDevice::installConstructor(*_jsRuntime);
   GPUDeviceLostInfo::installConstructor(*_jsRuntime);
-  GPUError::installConstructor(*_jsRuntime);
   GPUExternalTexture::installConstructor(*_jsRuntime);
-  GPUInternalError::installConstructor(*_jsRuntime);
-  GPUOutOfMemoryError::installConstructor(*_jsRuntime);
-  GPUValidationError::installConstructor(*_jsRuntime);
   GPUUncapturedErrorEvent::installConstructor(*_jsRuntime);
   GPUQueue::installConstructor(*_jsRuntime);
   GPURenderBundleEncoder::installConstructor(*_jsRuntime);
