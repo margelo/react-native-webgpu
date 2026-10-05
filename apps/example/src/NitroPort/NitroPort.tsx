@@ -32,6 +32,14 @@ export const NitroPort = () => {
   const [compilationMessages, setCompilationMessages] = useState<number>();
 
   const ref = useWebGPU(async ({ context, device, presentationFormat }) => {
+    const adapter = (await navigator.gpu.requestAdapter())!;
+    const lostDevice = await adapter.requestDevice();
+    lostDevice.destroy();
+    const lostInfo = await lostDevice.lost;
+    device.pushErrorScope("validation");
+    device.createSampler({ maxAnisotropy: 0 });
+    const validationError = (await device.popErrorScope())!;
+
     const asset = await fetchAsset(require("../assets/Di-3d.png"));
     const imageBitmap = await createImageBitmap(await asset.arrayBuffer());
     const photo = device.createTexture({
@@ -166,6 +174,11 @@ export const NitroPort = () => {
           describe("GPUTextureView", view),
           describe("GPUCommandBuffer", commandBuffer),
           describe("ImageBitmap", imageBitmap),
+          describe("GPUTexture", photo),
+          describe("GPUSupportedLimits", device.limits),
+          describe("GPUAdapterInfo", adapter.info),
+          describe("GPUDeviceLostInfo", lostInfo),
+          describe("GPUValidationError", validationError),
           describe("Canvas", context.canvas),
           describe("GPUDevice (still legacy)", device),
         ]);
