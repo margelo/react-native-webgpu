@@ -701,7 +701,7 @@ void GPUDevice::deliverUncapturedError(wgpu::ErrorType type,
   }
 
   // Create the appropriate error object based on type
-  GPUErrorVariant error;
+  std::shared_ptr<margelo::nitro::webgpu::HybridGPUErrorSpec> error;
   switch (type) {
   case wgpu::ErrorType::Validation:
     error = std::make_shared<GPUValidationError>(message);
