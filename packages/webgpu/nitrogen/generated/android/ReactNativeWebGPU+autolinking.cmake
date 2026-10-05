@@ -45,6 +45,7 @@ target_sources(
   ../nitrogen/generated/shared/c++/HybridGPUValidationErrorSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUOutOfMemoryErrorSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUInternalErrorSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUExternalTextureSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUPipelineLayoutSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUQuerySetSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPURenderBundleSpec.cpp
