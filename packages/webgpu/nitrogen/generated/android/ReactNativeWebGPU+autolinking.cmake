@@ -57,6 +57,7 @@ target_sources(
   ../nitrogen/generated/shared/c++/HybridGPUTextureViewSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUUncapturedErrorEventSpec.cpp
   ../nitrogen/generated/shared/c++/HybridImageBitmapSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridNativeVideoFrameSpec.cpp
   # Android-specific Nitrogen C++ sources
   
 )
