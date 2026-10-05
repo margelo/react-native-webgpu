@@ -98,7 +98,6 @@ RNWebGPUManager::RNWebGPUManager(
   GPURenderBundleEncoder::installConstructor(*_jsRuntime);
   GPURenderPassEncoder::installConstructor(*_jsRuntime);
   GPUSharedTextureMemory::installConstructor(*_jsRuntime);
-  GPUTexture::installConstructor(*_jsRuntime);
   VideoFrame::installConstructor(*_jsRuntime);
   VideoPlayer::installConstructor(*_jsRuntime);
 

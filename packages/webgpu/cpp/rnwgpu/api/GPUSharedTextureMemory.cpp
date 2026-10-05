@@ -88,7 +88,8 @@ jsi::Value GPUSharedTextureMemory::endAccess(jsi::Runtime &runtime,
     throw jsi::JSError(
         runtime, "GPUSharedTextureMemory::endAccess(): expected (texture)");
   }
-  auto texture = GPUTexture::fromValue(runtime, args[0]);
+  auto texture = JSIConverter<std::shared_ptr<GPUTexture>>::fromJSI(
+      runtime, args[0], false);
 
   wgpu::SharedTextureMemoryEndAccessState state{};
 
@@ -113,8 +114,9 @@ jsi::Value GPUSharedTextureMemory::endAccess(jsi::Runtime &runtime,
     auto wrapper = std::make_shared<GPUSharedFence>(std::move(fence), "");
     jsi::Object entry(runtime);
     entry.setProperty(runtime, "fence", wrapper->toObject(runtime));
-    entry.setProperty(runtime, "signaledValue",
-                      jsi::BigInt::fromUint64(runtime, state.signaledValues[i]));
+    entry.setProperty(
+        runtime, "signaledValue",
+        jsi::BigInt::fromUint64(runtime, state.signaledValues[i]));
     fences.setValueAtIndex(runtime, i, std::move(entry));
   }
 
