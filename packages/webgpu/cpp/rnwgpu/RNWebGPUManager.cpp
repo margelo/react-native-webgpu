@@ -93,7 +93,6 @@ RNWebGPUManager::RNWebGPUManager(
   GPUCompilationMessage::installConstructor(*_jsRuntime);
   GPUComputePassEncoder::installConstructor(*_jsRuntime);
   GPUDevice::installConstructor(*_jsRuntime);
-  GPUExternalTexture::installConstructor(*_jsRuntime);
   GPUQueue::installConstructor(*_jsRuntime);
   GPURenderBundleEncoder::installConstructor(*_jsRuntime);
   GPURenderPassEncoder::installConstructor(*_jsRuntime);

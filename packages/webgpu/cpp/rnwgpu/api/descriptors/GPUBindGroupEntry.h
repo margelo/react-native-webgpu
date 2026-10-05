@@ -51,9 +51,9 @@ template <> struct JSIConverter<std::shared_ptr<rnwgpu::GPUBindGroupEntry>> {
                          std::dynamic_pointer_cast<rnwgpu::GPUTextureView>(
                              nativeState)) {
             result->textureView = textureView;
-          } else if (obj.hasNativeState<rnwgpu::GPUExternalTexture>(runtime)) {
-            result->externalTexture =
-                obj.getNativeState<rnwgpu::GPUExternalTexture>(runtime);
+          } else if (auto externalTexture = std::dynamic_pointer_cast<
+                         rnwgpu::GPUExternalTexture>(nativeState)) {
+            result->externalTexture = externalTexture;
           } else if (obj.hasNativeState<rnwgpu::GPUBuffer>(runtime)) {
             // Support passing GPUBuffer directly as resource (auto-wrap in
             // GPUBufferBinding)
