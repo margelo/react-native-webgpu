@@ -61,4 +61,4 @@ This makes the handoff safe, but it is coarse-grained locking, not a license for
 - **Don't drive the same canvas context from two threads.** Keep `configure()`, `getCurrentTexture()`, and `present()` for a given context on a single runtime.
 - Dawn describes this feature as heavy-handed and notes that some reentrancy cases may still deadlock, so treat heavy cross-thread churn on one device as unsupported territory.
 
-For completeness, the default can be disabled with `implicitDeviceSynchronization: false` on the device descriptor (a non-standard extension, ignored on the web). This is only for profiling or single-threaded setups; a device created this way must never be touched from a worklet runtime.
+The feature cannot be disabled: the deprecated `implicitDeviceSynchronization` descriptor flag is ignored.
