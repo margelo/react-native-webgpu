@@ -40,6 +40,7 @@ target_sources(
   ../nitrogen/generated/shared/c++/HybridGPUCommandBufferSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUCompilationInfoSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUComputePipelineSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUDeviceLostInfoSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUErrorSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUValidationErrorSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUOutOfMemoryErrorSpec.cpp
