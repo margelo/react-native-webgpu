@@ -53,6 +53,7 @@ target_sources(
   ../nitrogen/generated/shared/c++/HybridGPUShaderModuleSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUSharedFenceSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUSupportedLimitsSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUTextureSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUTextureViewSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUUncapturedErrorEventSpec.cpp
   ../nitrogen/generated/shared/c++/HybridImageBitmapSpec.cpp
