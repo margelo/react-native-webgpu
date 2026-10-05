@@ -14,6 +14,18 @@ namespace margelo::nitro::webgpu {
     HybridObject::loadHybridMethods();
     // load custom methods/properties
     registerHybrids(this, [](Prototype& prototype) {
+      prototype.registerHybridGetter("paused", &HybridVideoPlayerSpec::getPaused);
+      prototype.registerHybridGetter("currentTime", &HybridVideoPlayerSpec::getCurrentTime);
+      prototype.registerHybridSetter("currentTime", &HybridVideoPlayerSpec::setCurrentTime);
+      prototype.registerHybridGetter("duration", &HybridVideoPlayerSpec::getDuration);
+      prototype.registerHybridGetter("volume", &HybridVideoPlayerSpec::getVolume);
+      prototype.registerHybridSetter("volume", &HybridVideoPlayerSpec::setVolume);
+      prototype.registerHybridGetter("loop", &HybridVideoPlayerSpec::getLoop);
+      prototype.registerHybridSetter("loop", &HybridVideoPlayerSpec::setLoop);
+      prototype.registerHybridGetter("videoWidth", &HybridVideoPlayerSpec::getVideoWidth);
+      prototype.registerHybridGetter("videoHeight", &HybridVideoPlayerSpec::getVideoHeight);
+      prototype.registerHybridGetter("rotation", &HybridVideoPlayerSpec::getRotation);
+      prototype.registerHybridGetter("frameRate", &HybridVideoPlayerSpec::getFrameRate);
       prototype.registerHybridMethod("copyLatestFrame", &HybridVideoPlayerSpec::copyLatestFrame);
       prototype.registerHybridMethod("play", &HybridVideoPlayerSpec::play);
       prototype.registerHybridMethod("pause", &HybridVideoPlayerSpec::pause);

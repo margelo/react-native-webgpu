@@ -48,7 +48,18 @@ namespace margelo::nitro::webgpu {
 
     public:
       // Properties
-      
+      virtual bool getPaused() = 0;
+      virtual double getCurrentTime() = 0;
+      virtual void setCurrentTime(double currentTime) = 0;
+      virtual double getDuration() = 0;
+      virtual double getVolume() = 0;
+      virtual void setVolume(double volume) = 0;
+      virtual bool getLoop() = 0;
+      virtual void setLoop(bool loop) = 0;
+      virtual double getVideoWidth() = 0;
+      virtual double getVideoHeight() = 0;
+      virtual double getRotation() = 0;
+      virtual double getFrameRate() = 0;
 
     public:
       // Methods

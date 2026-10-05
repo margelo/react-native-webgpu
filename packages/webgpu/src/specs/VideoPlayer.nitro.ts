@@ -10,4 +10,13 @@ export interface VideoPlayer extends HybridObject<{
   play(): void;
   pause(): void;
   release(): void;
+  readonly paused: boolean;
+  currentTime: number;
+  readonly duration: number;
+  volume: number;
+  loop: boolean;
+  readonly videoWidth: number;
+  readonly videoHeight: number;
+  readonly rotation: number;
+  readonly frameRate: number;
 }

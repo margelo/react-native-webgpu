@@ -45,10 +45,14 @@ struct JSIConverter<std::shared_ptr<rnwgpu::GPUImageCopyExternalImage>> {
       auto obj = arg.getObject(runtime);
       if (obj.hasProperty(runtime, "source")) {
         auto prop = obj.getProperty(runtime, "source");
-        if (prop.isObject() &&
-            prop.getObject(runtime).hasNativeState<VideoFrame>(runtime)) {
-          result->videoFrame =
-              prop.getObject(runtime).getNativeState<VideoFrame>(runtime);
+        auto source = prop.isObject() ? prop.getObject(runtime)
+                                      : jsi::Object(runtime);
+        auto nativeState = source.hasNativeState(runtime)
+                               ? source.getNativeState(runtime)
+                               : nullptr;
+        if (auto videoFrame =
+                std::dynamic_pointer_cast<VideoFrame>(nativeState)) {
+          result->videoFrame = videoFrame;
         } else {
           result->source = JSIConverter<std::shared_ptr<ImageBitmap>>::fromJSI(
               runtime, prop, false);
