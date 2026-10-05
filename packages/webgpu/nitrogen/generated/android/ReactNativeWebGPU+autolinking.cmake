@@ -34,6 +34,7 @@ target_sources(
   ../nitrogen/generated/android/ReactNativeWebGPUOnLoad.cpp
   # Shared Nitrogen C++ sources
   ../nitrogen/generated/shared/c++/HybridCanvasSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUAdapterInfoSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUBindGroupSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUBindGroupLayoutSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUCommandBufferSpec.cpp
