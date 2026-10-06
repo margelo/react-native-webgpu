@@ -75,6 +75,19 @@ fromWGPU(wgpu::TextureDimension value) {
   throw std::invalid_argument("Unsupported wgpu::TextureDimension");
 }
 
+inline wgpu::TextureDimension
+toWGPU(margelo::nitro::webgpu::GPUTextureDimension value) {
+  switch (value) {
+  case margelo::nitro::webgpu::GPUTextureDimension::_1D:
+    return wgpu::TextureDimension::e1D;
+  case margelo::nitro::webgpu::GPUTextureDimension::_2D:
+    return wgpu::TextureDimension::e2D;
+  case margelo::nitro::webgpu::GPUTextureDimension::_3D:
+    return wgpu::TextureDimension::e3D;
+  }
+  throw std::invalid_argument("Unsupported GPUTextureDimension");
+}
+
 inline margelo::nitro::webgpu::GPUTextureFormat
 fromWGPU(wgpu::TextureFormat value) {
   switch (value) {

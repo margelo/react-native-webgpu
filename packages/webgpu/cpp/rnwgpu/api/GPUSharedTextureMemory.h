@@ -1,71 +1,45 @@
 #pragma once
 
-#include <cstdint>
 #include <memory>
 #include <optional>
 #include <string>
+#include <utility>
 #include <vector>
 
-#include "NativeObject.h"
+#include "HybridGPUSharedTextureMemorySpec.hpp"
+#include "WebGPUObject.hpp"
 
 #include "webgpu/webgpu_cpp.h"
 
-#include "GPUSharedFence.h"
-#include "GPUSharedFenceState.h"
-#include "GPUTexture.h"
-#include "GPUTextureDescriptor.h"
-
 namespace rnwgpu {
 
-namespace jsi = facebook::jsi;
-
-class GPUSharedTextureMemory : public NativeObject<GPUSharedTextureMemory> {
+class GPUSharedTextureMemory
+    : public WebGPUObject<
+          margelo::nitro::webgpu::HybridGPUSharedTextureMemorySpec> {
 public:
-  static constexpr const char *CLASS_NAME = "GPUSharedTextureMemory";
-
-  explicit GPUSharedTextureMemory(wgpu::SharedTextureMemory instance,
-                                  std::string label)
-      : NativeObject(CLASS_NAME), _instance(std::move(instance)),
+  GPUSharedTextureMemory(wgpu::SharedTextureMemory instance, std::string label)
+      : HybridObject(TAG), _instance(std::move(instance)),
         _label(std::move(label)) {}
 
-public:
-  std::string getBrand() { return CLASS_NAME; }
-
-  std::shared_ptr<GPUTexture>
-  createTexture(std::optional<std::shared_ptr<GPUTextureDescriptor>> descriptor);
-
-  // Optional `fences` are wait fences: Dawn waits for each to reach its
-  // signaledValue before writing the surface. Throws on failure.
+  std::shared_ptr<margelo::nitro::webgpu::HybridGPUTextureSpec> createTexture(
+      const std::optional<margelo::nitro::webgpu::GPUTextureDescriptor>
+          &descriptor) override;
   void beginAccess(
-      std::shared_ptr<GPUTexture> texture, bool initialized,
-      std::optional<std::vector<std::shared_ptr<GPUSharedFenceState>>> fences);
+      const std::shared_ptr<margelo::nitro::webgpu::HybridGPUTextureSpec>
+          &texture,
+      bool initialized,
+      const std::optional<
+          std::vector<margelo::nitro::webgpu::GPUSharedFenceState>> &fences)
+      override;
+  margelo::nitro::webgpu::GPUSharedTextureMemoryEndAccessState
+  endAccess(const std::shared_ptr<margelo::nitro::webgpu::HybridGPUTextureSpec>
+                &texture) override;
 
-  // endAccess(texture) -> { initialized, fences: { fence, signaledValue }[] }
-  // Surfaces the fences Dawn produced for the access. Throws on failure.
-  jsi::Value endAccess(jsi::Runtime &runtime, const jsi::Value &thisVal,
-                       const jsi::Value *args, size_t count);
-
-  std::string getLabel() { return _label; }
-  void setLabel(const std::string &label) {
+  std::string getLabel() override { return _label; }
+  void setLabel(const std::string &label) override {
     _label = label;
     _instance.SetLabel(_label.c_str());
   }
-
-  static void definePrototype(jsi::Runtime &runtime, jsi::Object &prototype) {
-    installGetter(runtime, prototype, "__brand",
-                  &GPUSharedTextureMemory::getBrand);
-    installMethod(runtime, prototype, "createTexture",
-                  &GPUSharedTextureMemory::createTexture);
-    installMethod(runtime, prototype, "beginAccess",
-                  &GPUSharedTextureMemory::beginAccess);
-    installMethod(runtime, prototype, "endAccess",
-                  &GPUSharedTextureMemory::endAccess);
-    installGetterSetter(runtime, prototype, "label",
-                        &GPUSharedTextureMemory::getLabel,
-                        &GPUSharedTextureMemory::setLabel);
-  }
-
-  inline const wgpu::SharedTextureMemory get() { return _instance; }
 
 private:
   wgpu::SharedTextureMemory _instance;

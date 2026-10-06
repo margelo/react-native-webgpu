@@ -47,6 +47,7 @@
 #include "GPUSamplerDescriptor.h"
 #include "GPUShaderModule.h"
 #include "GPUShaderModuleDescriptor.h"
+#include "GPUSharedFence.h"
 #include "GPUSharedFenceDescriptor.h"
 #include "GPUSharedTextureMemory.h"
 #include "GPUSharedTextureMemoryDescriptor.h"
