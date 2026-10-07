@@ -41,6 +41,11 @@ public:
     _instance.SetLabel(_label.c_str());
   }
 
+  void dispose() override { _instance = nullptr; }
+
+protected:
+  size_t getExternalMemorySize() noexcept override;
+
 private:
   wgpu::SharedTextureMemory _instance;
   std::string _label;

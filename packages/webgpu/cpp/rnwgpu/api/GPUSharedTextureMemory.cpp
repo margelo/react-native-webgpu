@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 
+#include "BytesPerPixel.h"
 #include "EnforceRange.h"
 #include "EnumMaps.h"
 #include "GPUSharedFence.h"
@@ -149,6 +150,15 @@ GPUSharedTextureMemoryEndAccessState GPUSharedTextureMemory::endAccess(
   }
   return GPUSharedTextureMemoryEndAccessState(
       static_cast<bool>(state.initialized), std::move(fences));
+}
+
+size_t GPUSharedTextureMemory::getExternalMemorySize() noexcept {
+  wgpu::SharedTextureMemoryProperties properties{};
+  _instance.GetProperties(&properties);
+  size_t width = properties.size.width;
+  size_t height = properties.size.height;
+  size_t layers = properties.size.depthOrArrayLayers;
+  return width * height * layers * bytesPerPixel(properties.format);
 }
 
 } // namespace rnwgpu
