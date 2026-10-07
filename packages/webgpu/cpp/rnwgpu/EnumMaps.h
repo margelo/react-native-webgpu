@@ -467,8 +467,6 @@ toWGPU(margelo::nitro::webgpu::GPUTextureFormat value) {
     return wgpu::TextureFormat::ASTC12x12Unorm;
   case margelo::nitro::webgpu::GPUTextureFormat::ASTC_12X12_UNORM_SRGB:
     return wgpu::TextureFormat::ASTC12x12UnormSrgb;
-  default:
-    break;
   }
   throw std::invalid_argument("Unsupported GPUTextureFormat");
 }
@@ -509,8 +507,6 @@ toWGPU(margelo::nitro::webgpu::GPUTextureViewDimension value) {
     return wgpu::TextureViewDimension::CubeArray;
   case margelo::nitro::webgpu::GPUTextureViewDimension::_3D:
     return wgpu::TextureViewDimension::e3D;
-  default:
-    break;
   }
   throw std::invalid_argument("Unsupported GPUTextureViewDimension");
 }
@@ -539,8 +535,6 @@ toWGPU(margelo::nitro::webgpu::GPUTextureAspect value) {
     return wgpu::TextureAspect::StencilOnly;
   case margelo::nitro::webgpu::GPUTextureAspect::DEPTH_ONLY:
     return wgpu::TextureAspect::DepthOnly;
-  default:
-    break;
   }
   throw std::invalid_argument("Unsupported GPUTextureAspect");
 }
