@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 
-#include "BytesPerPixel.h"
+#include "BytesPerPixel.hpp"
 #include "EnforceRange.h"
 
 namespace rnwgpu {

@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "BytesPerPixel.h"
+#include "BytesPerPixel.hpp"
 #include "EnforceRange.h"
 #include "EnumMaps.h"
 #include "GPUSharedFence.h"

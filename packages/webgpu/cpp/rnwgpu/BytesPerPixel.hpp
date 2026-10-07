@@ -1,5 +1,5 @@
 //
-//  BytesPerPixel.h
+//  BytesPerPixel.hpp
 //  Pods
 //
 //  Created by Dave Mkpa-Eke on 07/10/26.
