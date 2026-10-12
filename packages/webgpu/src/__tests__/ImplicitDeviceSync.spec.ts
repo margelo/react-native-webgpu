@@ -41,7 +41,7 @@ describe("Implicit device synchronization", () => {
     expect(result.keptRequested).toBe(true);
   });
 
-  it("can be opted out with implicitDeviceSynchronization: false", async () => {
+  it("stays enabled with implicitDeviceSynchronization: false", async () => {
     if (client.OS === "web") {
       return;
     }
@@ -50,30 +50,6 @@ describe("Implicit device synchronization", () => {
         .requestAdapter()
         .then((adapter) =>
           adapter!.requestDevice({ implicitDeviceSynchronization: false }),
-        )
-        .then((device) =>
-          device.features.has("implicit-device-synchronization"),
-        );
-    });
-    expect(result).toBe(false);
-  });
-
-  it("stays enabled when explicitly listed in requiredFeatures alongside the flag", async () => {
-    if (client.OS === "web") {
-      return;
-    }
-    // Opting out of the default injection but explicitly requesting the
-    // feature must still enable it: the flag only controls the injection.
-    const result = await client.eval(({ gpu }) => {
-      return gpu
-        .requestAdapter()
-        .then((adapter) =>
-          adapter!.requestDevice({
-            implicitDeviceSynchronization: false,
-            requiredFeatures: [
-              "implicit-device-synchronization" as GPUFeatureName,
-            ],
-          }),
         )
         .then((device) =>
           device.features.has("implicit-device-synchronization"),

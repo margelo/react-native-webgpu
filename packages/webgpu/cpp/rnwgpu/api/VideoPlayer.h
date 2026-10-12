@@ -1,113 +1,79 @@
 #pragma once
 
 #include <memory>
-#include <string>
 #include <utility>
 #include <variant>
 
-#include "NativeObject.h"
+#include "HybridVideoPlayerSpec.hpp"
 #include "PlatformContext.h"
 #include "VideoFrame.h"
+#include "WebGPUObject.hpp"
 
 namespace rnwgpu {
 
-namespace jsi = facebook::jsi;
-
-// JSI wrapper around a platform-specific IVideoPlayer. Hands out fresh
-// VideoFrame handles each time the underlying decoder produces a new frame,
-// and exposes playback controls modeled on HTMLMediaElement (see
-// VideoPlayer in src/types.ts).
-class VideoPlayer : public NativeObject<VideoPlayer> {
+class VideoPlayer
+    : public WebGPUObject<margelo::nitro::webgpu::HybridVideoPlayerSpec> {
 public:
-  static constexpr const char *CLASS_NAME = "VideoPlayer";
-
   explicit VideoPlayer(std::unique_ptr<IVideoPlayer> impl)
-      : NativeObject(CLASS_NAME), _impl(std::move(impl)) {}
+      : HybridObject(TAG), _impl(std::move(impl)) {}
 
-  std::string getBrand() { return CLASS_NAME; }
-
-  // Returns the latest decoded frame, or null if no new frame is ready yet.
-  // Callers should poll this from their render loop and skip rendering (or
-  // reuse the last frame's texture) when null.
-  std::variant<std::nullptr_t, std::shared_ptr<VideoFrame>> copyLatestFrame() {
+  std::variant<
+      std::shared_ptr<margelo::nitro::webgpu::HybridNativeVideoFrameSpec>,
+      margelo::nitro::NullType>
+  copyLatestFrame() override {
     if (!_impl) {
-      return nullptr;
+      return margelo::nitro::null;
     }
     auto handle = _impl->copyLatestFrame();
     if (handle.handle == nullptr) {
-      return nullptr;
+      return margelo::nitro::null;
     }
     return std::make_shared<VideoFrame>(std::move(handle));
   }
 
-  void play() {
+  void play() override {
     if (_impl) {
       _impl->play();
     }
   }
 
-  void pause() {
+  void pause() override {
     if (_impl) {
       _impl->pause();
     }
   }
 
-  // A released player reads as paused, at the start, with no metadata.
-  bool getPaused() { return _impl ? _impl->paused() : true; }
+  bool getPaused() override { return _impl ? _impl->paused() : true; }
 
-  double getCurrentTime() { return _impl ? _impl->currentTime() : 0; }
-  void setCurrentTime(double seconds) {
+  double getCurrentTime() override { return _impl ? _impl->currentTime() : 0; }
+  void setCurrentTime(double seconds) override {
     if (_impl) {
       _impl->seek(seconds);
     }
   }
 
-  double getDuration() { return _impl ? _impl->duration() : 0; }
+  double getDuration() override { return _impl ? _impl->duration() : 0; }
 
-  double getVolume() { return _impl ? _impl->volume() : 0; }
-  void setVolume(double volume) {
+  double getVolume() override { return _impl ? _impl->volume() : 0; }
+  void setVolume(double volume) override {
     if (_impl) {
       _impl->setVolume(volume);
     }
   }
 
-  bool getLoop() { return _impl ? _impl->loop() : false; }
-  void setLoop(bool loop) {
+  bool getLoop() override { return _impl ? _impl->loop() : false; }
+  void setLoop(bool loop) override {
     if (_impl) {
       _impl->setLoop(loop);
     }
   }
 
-  double getVideoWidth() { return _impl ? _impl->videoWidth() : 0; }
-  double getVideoHeight() { return _impl ? _impl->videoHeight() : 0; }
-  double getRotation() { return _impl ? _impl->rotation() : 0; }
-  double getFrameRate() { return _impl ? _impl->frameRate() : 0; }
+  double getVideoWidth() override { return _impl ? _impl->videoWidth() : 0; }
+  double getVideoHeight() override { return _impl ? _impl->videoHeight() : 0; }
+  double getRotation() override { return _impl ? _impl->rotation() : 0; }
+  double getFrameRate() override { return _impl ? _impl->frameRate() : 0; }
 
-  void release() { _impl.reset(); }
-
-  static void definePrototype(jsi::Runtime &runtime, jsi::Object &prototype) {
-    installGetter(runtime, prototype, "__brand", &VideoPlayer::getBrand);
-    installMethod(runtime, prototype, "copyLatestFrame",
-                  &VideoPlayer::copyLatestFrame);
-    installMethod(runtime, prototype, "play", &VideoPlayer::play);
-    installMethod(runtime, prototype, "pause", &VideoPlayer::pause);
-    installMethod(runtime, prototype, "release", &VideoPlayer::release);
-    installGetter(runtime, prototype, "paused", &VideoPlayer::getPaused);
-    installGetterSetter(runtime, prototype, "currentTime",
-                        &VideoPlayer::getCurrentTime,
-                        &VideoPlayer::setCurrentTime);
-    installGetter(runtime, prototype, "duration", &VideoPlayer::getDuration);
-    installGetterSetter(runtime, prototype, "volume", &VideoPlayer::getVolume,
-                        &VideoPlayer::setVolume);
-    installGetterSetter(runtime, prototype, "loop", &VideoPlayer::getLoop,
-                        &VideoPlayer::setLoop);
-    installGetter(runtime, prototype, "videoWidth",
-                  &VideoPlayer::getVideoWidth);
-    installGetter(runtime, prototype, "videoHeight",
-                  &VideoPlayer::getVideoHeight);
-    installGetter(runtime, prototype, "rotation", &VideoPlayer::getRotation);
-    installGetter(runtime, prototype, "frameRate", &VideoPlayer::getFrameRate);
-  }
+  void release() override { _impl.reset(); }
 
 private:
   std::unique_ptr<IVideoPlayer> _impl;

@@ -49,7 +49,6 @@ const NITRO_NAMES: Partial<Record<ConstructorName, string[]>> = {
     "GPUOutOfMemoryError",
     "GPUInternalError",
   ],
-  NativeVideoFrame: ["VideoFrame"],
 };
 
 const illegalConstructor = (name: string) =>

@@ -45,6 +45,7 @@ target_sources(
   ../nitrogen/generated/shared/c++/HybridGPUValidationErrorSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUOutOfMemoryErrorSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUInternalErrorSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUExternalTextureSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUPipelineLayoutSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUQuerySetSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPURenderBundleSpec.cpp
@@ -53,9 +54,12 @@ target_sources(
   ../nitrogen/generated/shared/c++/HybridGPUShaderModuleSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUSharedFenceSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUSupportedLimitsSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUTextureSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUTextureViewSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUUncapturedErrorEventSpec.cpp
   ../nitrogen/generated/shared/c++/HybridImageBitmapSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridNativeVideoFrameSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridVideoPlayerSpec.cpp
   # Android-specific Nitrogen C++ sources
   
 )

@@ -93,14 +93,10 @@ RNWebGPUManager::RNWebGPUManager(
   GPUCompilationMessage::installConstructor(*_jsRuntime);
   GPUComputePassEncoder::installConstructor(*_jsRuntime);
   GPUDevice::installConstructor(*_jsRuntime);
-  GPUExternalTexture::installConstructor(*_jsRuntime);
   GPUQueue::installConstructor(*_jsRuntime);
   GPURenderBundleEncoder::installConstructor(*_jsRuntime);
   GPURenderPassEncoder::installConstructor(*_jsRuntime);
   GPUSharedTextureMemory::installConstructor(*_jsRuntime);
-  GPUTexture::installConstructor(*_jsRuntime);
-  VideoFrame::installConstructor(*_jsRuntime);
-  VideoPlayer::installConstructor(*_jsRuntime);
 
   // Install constant objects as plain JS objects with own properties
   _jsRuntime->global().setProperty(*_jsRuntime, "GPUBufferUsage",
