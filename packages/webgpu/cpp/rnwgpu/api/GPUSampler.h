@@ -1,40 +1,29 @@
 #pragma once
 
 #include <string>
+#include <utility>
 
-#include "Unions.h"
-
-#include "NativeObject.h"
+#include "HybridGPUSamplerSpec.hpp"
+#include "WebGPUObject.hpp"
 
 #include "webgpu/webgpu_cpp.h"
 
 namespace rnwgpu {
 
-namespace jsi = facebook::jsi;
-
-class GPUSampler : public NativeObject<GPUSampler> {
+class GPUSampler
+    : public WebGPUObject<margelo::nitro::webgpu::HybridGPUSamplerSpec> {
 public:
-  static constexpr const char *CLASS_NAME = "GPUSampler";
+  GPUSampler(wgpu::Sampler instance, std::string label)
+      : HybridObject(TAG), _instance(std::move(instance)),
+        _label(std::move(label)) {}
 
-  explicit GPUSampler(wgpu::Sampler instance, std::string label)
-      : NativeObject(CLASS_NAME), _instance(instance), _label(label) {}
-
-public:
-  std::string getBrand() { return CLASS_NAME; }
-
-  std::string getLabel() { return _label; }
-  void setLabel(const std::string &label) {
+  std::string getLabel() override { return _label; }
+  void setLabel(const std::string &label) override {
     _label = label;
     _instance.SetLabel(_label.c_str());
   }
 
-  static void definePrototype(jsi::Runtime &runtime, jsi::Object &prototype) {
-    installGetter(runtime, prototype, "__brand", &GPUSampler::getBrand);
-    installGetterSetter(runtime, prototype, "label", &GPUSampler::getLabel,
-                        &GPUSampler::setLabel);
-  }
-
-  inline const wgpu::Sampler get() { return _instance; }
+  const wgpu::Sampler get() { return _instance; }
 
 private:
   wgpu::Sampler _instance;

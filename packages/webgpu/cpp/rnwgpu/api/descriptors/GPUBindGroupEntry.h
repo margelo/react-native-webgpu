@@ -44,8 +44,9 @@ template <> struct JSIConverter<std::shared_ptr<rnwgpu::GPUBindGroupEntry>> {
           auto nativeState = obj.hasNativeState(runtime)
                                  ? obj.getNativeState(runtime)
                                  : nullptr;
-          if (obj.hasNativeState<rnwgpu::GPUSampler>(runtime)) {
-            result->sampler = obj.getNativeState<rnwgpu::GPUSampler>(runtime);
+          if (auto sampler =
+                  std::dynamic_pointer_cast<rnwgpu::GPUSampler>(nativeState)) {
+            result->sampler = sampler;
           } else if (auto textureView =
                          std::dynamic_pointer_cast<rnwgpu::GPUTextureView>(
                              nativeState)) {

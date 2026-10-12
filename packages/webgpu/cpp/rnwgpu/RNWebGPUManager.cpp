@@ -88,13 +88,11 @@ RNWebGPUManager::RNWebGPUManager(
   GPU::installConstructor(*_jsRuntime);
   GPUAdapter::installConstructor(*_jsRuntime);
   GPUAdapterInfo::installConstructor(*_jsRuntime);
-  GPUBindGroup::installConstructor(*_jsRuntime);
   GPUBuffer::installConstructor(*_jsRuntime);
   GPUCanvasContext::installConstructor(*_jsRuntime);
   GPUCommandEncoder::installConstructor(*_jsRuntime);
   GPUCompilationMessage::installConstructor(*_jsRuntime);
   GPUComputePassEncoder::installConstructor(*_jsRuntime);
-  GPUComputePipeline::installConstructor(*_jsRuntime);
   GPUDevice::installConstructor(*_jsRuntime);
   GPUDeviceLostInfo::installConstructor(*_jsRuntime);
   GPUError::installConstructor(*_jsRuntime);
@@ -103,13 +101,9 @@ RNWebGPUManager::RNWebGPUManager(
   GPUOutOfMemoryError::installConstructor(*_jsRuntime);
   GPUValidationError::installConstructor(*_jsRuntime);
   GPUUncapturedErrorEvent::installConstructor(*_jsRuntime);
-  GPUPipelineLayout::installConstructor(*_jsRuntime);
-  GPUQuerySet::installConstructor(*_jsRuntime);
   GPUQueue::installConstructor(*_jsRuntime);
-  GPURenderBundle::installConstructor(*_jsRuntime);
   GPURenderBundleEncoder::installConstructor(*_jsRuntime);
   GPURenderPassEncoder::installConstructor(*_jsRuntime);
-  GPUSampler::installConstructor(*_jsRuntime);
   GPUSharedFence::installConstructor(*_jsRuntime);
   GPUSharedTextureMemory::installConstructor(*_jsRuntime);
   GPUSupportedLimits::installConstructor(*_jsRuntime);

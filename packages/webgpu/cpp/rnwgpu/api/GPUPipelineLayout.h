@@ -1,41 +1,29 @@
 #pragma once
 
 #include <string>
+#include <utility>
 
-#include "Unions.h"
-
-#include "NativeObject.h"
+#include "HybridGPUPipelineLayoutSpec.hpp"
+#include "WebGPUObject.hpp"
 
 #include "webgpu/webgpu_cpp.h"
 
 namespace rnwgpu {
 
-namespace jsi = facebook::jsi;
-
-class GPUPipelineLayout : public NativeObject<GPUPipelineLayout> {
+class GPUPipelineLayout
+    : public WebGPUObject<margelo::nitro::webgpu::HybridGPUPipelineLayoutSpec> {
 public:
-  static constexpr const char *CLASS_NAME = "GPUPipelineLayout";
+  GPUPipelineLayout(wgpu::PipelineLayout instance, std::string label)
+      : HybridObject(TAG), _instance(std::move(instance)),
+        _label(std::move(label)) {}
 
-  explicit GPUPipelineLayout(wgpu::PipelineLayout instance, std::string label)
-      : NativeObject(CLASS_NAME), _instance(instance), _label(label) {}
-
-public:
-  std::string getBrand() { return CLASS_NAME; }
-
-  std::string getLabel() { return _label; }
-  void setLabel(const std::string &label) {
+  std::string getLabel() override { return _label; }
+  void setLabel(const std::string &label) override {
     _label = label;
     _instance.SetLabel(_label.c_str());
   }
 
-  static void definePrototype(jsi::Runtime &runtime, jsi::Object &prototype) {
-    installGetter(runtime, prototype, "__brand", &GPUPipelineLayout::getBrand);
-    installGetterSetter(runtime, prototype, "label",
-                        &GPUPipelineLayout::getLabel,
-                        &GPUPipelineLayout::setLabel);
-  }
-
-  inline const wgpu::PipelineLayout get() { return _instance; }
+  const wgpu::PipelineLayout get() { return _instance; }
 
 private:
   wgpu::PipelineLayout _instance;

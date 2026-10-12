@@ -1,12 +1,13 @@
 #include "GPUComputePipeline.h"
+
 #include <memory>
 
 namespace rnwgpu {
 
-std::shared_ptr<GPUBindGroupLayout>
-GPUComputePipeline::getBindGroupLayout(uint32_t groupIndex) {
-  auto bindGroup = _instance.GetBindGroupLayout(groupIndex);
-  return std::make_shared<GPUBindGroupLayout>(bindGroup, "");
+std::shared_ptr<margelo::nitro::webgpu::HybridGPUBindGroupLayoutSpec>
+GPUComputePipeline::getBindGroupLayout(double index) {
+  auto layout = _instance.GetBindGroupLayout(static_cast<uint32_t>(index));
+  return std::make_shared<GPUBindGroupLayout>(layout, "");
 }
 
 } // namespace rnwgpu

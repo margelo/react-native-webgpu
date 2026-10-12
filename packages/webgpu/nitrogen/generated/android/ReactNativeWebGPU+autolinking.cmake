@@ -33,9 +33,14 @@ target_sources(
   # Autolinking Setup
   ../nitrogen/generated/android/ReactNativeWebGPUOnLoad.cpp
   # Shared Nitrogen C++ sources
+  ../nitrogen/generated/shared/c++/HybridGPUBindGroupSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUBindGroupLayoutSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUCommandBufferSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUCompilationInfoSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUComputePipelineSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUPipelineLayoutSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUQuerySetSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPURenderBundleSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPURenderPipelineSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUSamplerSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUShaderModuleSpec.cpp

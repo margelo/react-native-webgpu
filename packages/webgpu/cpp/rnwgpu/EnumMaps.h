@@ -10,6 +10,7 @@
 #include <stdexcept>
 
 #include "GPUCompilationMessageType.hpp"
+#include "GPUQueryType.hpp"
 
 #include "webgpu/webgpu_cpp.h"
 
@@ -27,6 +28,17 @@ fromWGPU(wgpu::CompilationMessageType type) {
     return GPUCompilationMessageType::INFO;
   }
   throw std::invalid_argument("Unknown wgpu::CompilationMessageType");
+}
+
+inline margelo::nitro::webgpu::GPUQueryType fromWGPU(wgpu::QueryType type) {
+  using margelo::nitro::webgpu::GPUQueryType;
+  switch (type) {
+  case wgpu::QueryType::Occlusion:
+    return GPUQueryType::OCCLUSION;
+  case wgpu::QueryType::Timestamp:
+    return GPUQueryType::TIMESTAMP;
+  }
+  throw std::invalid_argument("Unknown wgpu::QueryType");
 }
 
 } // namespace rnwgpu
