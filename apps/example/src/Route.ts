@@ -1,5 +1,6 @@
 export type Routes = {
   Home: undefined;
+  NitroPort: undefined;
   HelloTriangle: undefined;
   HelloTriangleMSAA: undefined;
   ImageBlur: undefined;
