@@ -1,79 +1,42 @@
 #pragma once
 
 #include <string>
+#include <string_view>
 #include <vector>
 
-#include "Unions.h"
-
-#include "NativeObject.h"
+#include "EnumMaps.h"
+#include "HybridGPUCompilationInfoSpec.hpp"
+#include "WebGPUObject.hpp"
 
 #include "webgpu/webgpu_cpp.h"
 
 namespace rnwgpu {
 
-namespace jsi = facebook::jsi;
-
-struct GPUCompilationMessageData {
-  std::string message;
-  wgpu::CompilationMessageType type;
-  uint64_t lineNum;
-  uint64_t linePos;
-  uint64_t offset;
-  uint64_t length;
-};
-
-class GPUCompilationInfo : public NativeObject<GPUCompilationInfo> {
+class GPUCompilationInfo
+    : public WebGPUObject<
+          margelo::nitro::webgpu::HybridGPUCompilationInfoSpec> {
 public:
-  static constexpr const char *CLASS_NAME = "GPUCompilationInfo";
+  explicit GPUCompilationInfo(const wgpu::CompilationInfo &info)
+      : HybridObject(TAG) {
+    _messages.reserve(info.messageCount);
+    for (size_t i = 0; i < info.messageCount; ++i) {
+      const auto &message = info.messages[i];
+      _messages.emplace_back(std::string(std::string_view(message.message)),
+                             fromWGPU(message.type),
+                             static_cast<double>(message.lineNum),
+                             static_cast<double>(message.linePos),
+                             static_cast<double>(message.offset),
+                             static_cast<double>(message.length));
+    }
+  }
 
-  GPUCompilationInfo() : NativeObject(CLASS_NAME) {}
-
-public:
-  std::string getBrand() { return CLASS_NAME; }
-
-  std::vector<GPUCompilationMessageData> getMessages() { return _messages; }
-
-  static void definePrototype(jsi::Runtime &runtime, jsi::Object &prototype) {
-    installGetter(runtime, prototype, "__brand", &GPUCompilationInfo::getBrand);
-    installGetter(runtime, prototype, "messages",
-                  &GPUCompilationInfo::getMessages);
+  std::vector<margelo::nitro::webgpu::GPUCompilationMessage>
+  getMessages() override {
+    return _messages;
   }
 
 private:
-  std::vector<GPUCompilationMessageData> _messages;
-  friend class GPUShaderModule;
-};
-
-template <> struct JSIConverter<std::vector<GPUCompilationMessageData>> {
-  static std::vector<GPUCompilationMessageData>
-  fromJSI(jsi::Runtime &runtime, const jsi::Value &arg, bool outOfBounds) {
-    throw std::runtime_error("Invalid GPUCompilationMessageData::fromJSI()");
-  }
-  static jsi::Value toJSI(jsi::Runtime &runtime,
-                          std::vector<GPUCompilationMessageData> arg) {
-    jsi::Array result = jsi::Array(runtime, arg.size());
-    for (size_t i = 0; i < arg.size(); i++) {
-      const auto &message = arg[i];
-      jsi::Object messageObj(runtime);
-      messageObj.setProperty(
-          runtime, "message",
-          jsi::String::createFromUtf8(runtime, message.message));
-      std::string typeStr;
-      EnumMapper::convertEnumToJSUnion(message.type, &typeStr);
-      messageObj.setProperty(runtime, "type",
-                             jsi::String::createFromUtf8(runtime, typeStr));
-      messageObj.setProperty(runtime, "lineNum",
-                             static_cast<double>(message.lineNum));
-      messageObj.setProperty(runtime, "linePos",
-                             static_cast<double>(message.linePos));
-      messageObj.setProperty(runtime, "offset",
-                             static_cast<double>(message.offset));
-      messageObj.setProperty(runtime, "length",
-                             static_cast<double>(message.length));
-      result.setValueAtIndex(runtime, i, messageObj);
-    }
-    return result;
-  }
+  std::vector<margelo::nitro::webgpu::GPUCompilationMessage> _messages;
 };
 
 } // namespace rnwgpu

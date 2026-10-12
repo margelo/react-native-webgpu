@@ -2,55 +2,36 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 
-#include "Unions.h"
-
-#include "NativeObject.h"
+#include "GPUBindGroupLayout.h"
+#include "HybridGPURenderPipelineSpec.hpp"
+#include "WebGPUObject.hpp"
 
 #include "webgpu/webgpu_cpp.h"
 
-#include "GPUBindGroupLayout.h"
-
 namespace rnwgpu {
 
-namespace jsi = facebook::jsi;
-
-class GPURenderPipeline : public NativeObject<GPURenderPipeline> {
+class GPURenderPipeline
+    : public WebGPUObject<margelo::nitro::webgpu::HybridGPURenderPipelineSpec> {
 public:
-  static constexpr const char *CLASS_NAME = "GPURenderPipeline";
+  GPURenderPipeline(wgpu::RenderPipeline instance, std::string label)
+      : HybridObject(TAG), _instance(std::move(instance)),
+        _label(std::move(label)) {}
 
-  explicit GPURenderPipeline(wgpu::RenderPipeline instance, std::string label)
-      : NativeObject(CLASS_NAME), _instance(instance), _label(label) {}
+  std::shared_ptr<margelo::nitro::webgpu::HybridGPUBindGroupLayoutSpec>
+  getBindGroupLayout(double index) override;
 
-public:
-  std::string getBrand() { return CLASS_NAME; }
-
-  std::shared_ptr<GPUBindGroupLayout> getBindGroupLayout(uint32_t index);
-
-  std::string getLabel() { return _label; }
-  void setLabel(const std::string &label) {
+  std::string getLabel() override { return _label; }
+  void setLabel(const std::string &label) override {
     _label = label;
     _instance.SetLabel(_label.c_str());
   }
 
-  static void definePrototype(jsi::Runtime &runtime, jsi::Object &prototype) {
-    installGetter(runtime, prototype, "__brand", &GPURenderPipeline::getBrand);
-    installMethod(runtime, prototype, "getBindGroupLayout",
-                  &GPURenderPipeline::getBindGroupLayout);
-    installGetterSetter(runtime, prototype, "label",
-                        &GPURenderPipeline::getLabel,
-                        &GPURenderPipeline::setLabel);
-  }
+  const wgpu::RenderPipeline get() { return _instance; }
 
-  inline const wgpu::RenderPipeline get() { return _instance; }
-
-  size_t getMemoryPressure() override {
-    // Render pipelines contain compiled shader state, vertex/fragment shaders,
-    // render state, and driver-specific optimized code
-    // Estimate: 24KB for a typical render pipeline with vertex + fragment
-    // shaders
-    return 24 * 1024;
-  }
+protected:
+  size_t getExternalMemorySize() noexcept override { return 24 * 1024; }
 
 private:
   wgpu::RenderPipeline _instance;

@@ -89,12 +89,9 @@ RNWebGPUManager::RNWebGPUManager(
   GPUAdapter::installConstructor(*_jsRuntime);
   GPUAdapterInfo::installConstructor(*_jsRuntime);
   GPUBindGroup::installConstructor(*_jsRuntime);
-  GPUBindGroupLayout::installConstructor(*_jsRuntime);
   GPUBuffer::installConstructor(*_jsRuntime);
   GPUCanvasContext::installConstructor(*_jsRuntime);
-  GPUCommandBuffer::installConstructor(*_jsRuntime);
   GPUCommandEncoder::installConstructor(*_jsRuntime);
-  GPUCompilationInfo::installConstructor(*_jsRuntime);
   GPUCompilationMessage::installConstructor(*_jsRuntime);
   GPUComputePassEncoder::installConstructor(*_jsRuntime);
   GPUComputePipeline::installConstructor(*_jsRuntime);
@@ -112,14 +109,11 @@ RNWebGPUManager::RNWebGPUManager(
   GPURenderBundle::installConstructor(*_jsRuntime);
   GPURenderBundleEncoder::installConstructor(*_jsRuntime);
   GPURenderPassEncoder::installConstructor(*_jsRuntime);
-  GPURenderPipeline::installConstructor(*_jsRuntime);
   GPUSampler::installConstructor(*_jsRuntime);
   GPUSharedFence::installConstructor(*_jsRuntime);
   GPUSharedTextureMemory::installConstructor(*_jsRuntime);
-  GPUShaderModule::installConstructor(*_jsRuntime);
   GPUSupportedLimits::installConstructor(*_jsRuntime);
   GPUTexture::installConstructor(*_jsRuntime);
-  GPUTextureView::installConstructor(*_jsRuntime);
   VideoFrame::installConstructor(*_jsRuntime);
   VideoPlayer::installConstructor(*_jsRuntime);
 

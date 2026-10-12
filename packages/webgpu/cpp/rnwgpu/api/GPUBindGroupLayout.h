@@ -1,48 +1,33 @@
 #pragma once
 
 #include <string>
+#include <utility>
 
-#include "Unions.h"
-
-#include "NativeObject.h"
+#include "HybridGPUBindGroupLayoutSpec.hpp"
+#include "WebGPUObject.hpp"
 
 #include "webgpu/webgpu_cpp.h"
 
 namespace rnwgpu {
 
-namespace jsi = facebook::jsi;
-
-class GPUBindGroupLayout : public NativeObject<GPUBindGroupLayout> {
+class GPUBindGroupLayout
+    : public WebGPUObject<
+          margelo::nitro::webgpu::HybridGPUBindGroupLayoutSpec> {
 public:
-  static constexpr const char *CLASS_NAME = "GPUBindGroupLayout";
+  GPUBindGroupLayout(wgpu::BindGroupLayout instance, std::string label)
+      : HybridObject(TAG), _instance(std::move(instance)),
+        _label(std::move(label)) {}
 
-  explicit GPUBindGroupLayout(wgpu::BindGroupLayout instance, std::string label)
-      : NativeObject(CLASS_NAME), _instance(instance), _label(label) {}
-
-public:
-  std::string getBrand() { return CLASS_NAME; }
-
-  std::string getLabel() { return _label; }
-  void setLabel(const std::string &label) {
+  std::string getLabel() override { return _label; }
+  void setLabel(const std::string &label) override {
     _label = label;
     _instance.SetLabel(_label.c_str());
   }
 
-  static void definePrototype(jsi::Runtime &runtime, jsi::Object &prototype) {
-    installGetter(runtime, prototype, "__brand", &GPUBindGroupLayout::getBrand);
-    installGetterSetter(runtime, prototype, "label",
-                        &GPUBindGroupLayout::getLabel,
-                        &GPUBindGroupLayout::setLabel);
-  }
+  const wgpu::BindGroupLayout get() { return _instance; }
 
-  inline const wgpu::BindGroupLayout get() { return _instance; }
-
-  size_t getMemoryPressure() override {
-    // Bind group layouts define the structure/schema for bind groups
-    // They store binding descriptors, types, and validation info
-    // Estimate: 512 bytes per layout (smaller than actual bind groups)
-    return 512;
-  }
+protected:
+  size_t getExternalMemorySize() noexcept override { return 512; }
 
 private:
   wgpu::BindGroupLayout _instance;
