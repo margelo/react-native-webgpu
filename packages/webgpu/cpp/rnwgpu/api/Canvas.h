@@ -1,70 +1,52 @@
 #pragma once
 
-#include <memory>
-#include <string>
+#include <cstdint>
 
-#include "Unions.h"
-
-#include "webgpu/webgpu_cpp.h"
-
-#include "NativeObject.h"
+#include "HybridCanvasSpec.hpp"
+#include "WebGPUObject.hpp"
 
 namespace rnwgpu {
 
-namespace jsi = facebook::jsi;
-
-class Canvas : public NativeObject<Canvas> {
+class Canvas
+    : public WebGPUObject<margelo::nitro::webgpu::HybridCanvasSpec, false> {
 public:
-  static constexpr const char *CLASS_NAME = "Canvas";
+  Canvas(void *surface, int width, int height)
+      : HybridObject(TAG), _surface(surface), _width(width), _height(height),
+        _clientWidth(width), _clientHeight(height) {}
 
-  explicit Canvas(void *surface, const int width, const int height)
-      : NativeObject(CLASS_NAME), _surface(surface), _width(width),
-        _height(height), _clientWidth(width), _clientHeight(height) {}
+  uint64_t getSurface() override {
+    return reinterpret_cast<uint64_t>(_surface);
+  }
 
-  int getWidth() { return _width; }
-  int getHeight() { return _height; }
+  double getWidth() override { return _width; }
+  void setWidth(double width) override { _width = static_cast<int>(width); }
+  double getHeight() override { return _height; }
+  void setHeight(double height) override { _height = static_cast<int>(height); }
 
-  void setWidth(const int width) { _width = width; }
-  void setHeight(const int height) { _height = height; }
+  double getClientWidth() override { return _clientWidth; }
+  double getClientHeight() override { return _clientHeight; }
+  void setClientWidth(int width) { _clientWidth = width; }
+  void setClientHeight(int height) { _clientHeight = height; }
 
-  int getClientWidth() { return _clientWidth; }
-  int getClientHeight() { return _clientHeight; }
-
-  void setClientWidth(const int width) { _clientWidth = width; }
-
-  void setClientHeight(const int height) { _clientHeight = height; }
-
-  void *getSurface() { return _surface; }
-
-  // No-op DOM-compatibility stubs so that web renderers (Three.js,
-  // react-three-fiber) can treat the canvas like an HTMLCanvasElement without
-  // needing a JS wrapper. Extra JS arguments are ignored.
-  void addEventListener() {}
-  void removeEventListener() {}
-  void dispatchEvent() {}
-  void setPointerCapture() {}
-  void releasePointerCapture() {}
-
-  static void definePrototype(jsi::Runtime &runtime, jsi::Object &prototype) {
-    installGetter(runtime, prototype, "surface", &Canvas::getSurface);
-    installGetterSetter(runtime, prototype, "width", &Canvas::getWidth,
-                        &Canvas::setWidth);
-    installGetterSetter(runtime, prototype, "height", &Canvas::getHeight,
-                        &Canvas::setHeight);
-    installGetter(runtime, prototype, "clientWidth", &Canvas::getClientWidth);
-    installGetter(runtime, prototype, "clientHeight", &Canvas::getClientHeight);
-    installMethod(runtime, prototype, "addEventListener",
-                  &Canvas::addEventListener);
-    installMethod(runtime, prototype, "removeEventListener",
-                  &Canvas::removeEventListener);
-    installMethod(runtime, prototype, "dispatchEvent", &Canvas::dispatchEvent);
-    installMethod(runtime, prototype, "setPointerCapture",
-                  &Canvas::setPointerCapture);
-    installMethod(runtime, prototype, "releasePointerCapture",
-                  &Canvas::releasePointerCapture);
+protected:
+  void loadHybridMethods() override {
+    WebGPUObject::loadHybridMethods();
+    registerHybrids(this, [](Prototype &prototype) {
+      for (const char *name :
+           {"addEventListener", "removeEventListener", "dispatchEvent",
+            "setPointerCapture", "releasePointerCapture"}) {
+        prototype.registerRawHybridMethod(name, 0, &Canvas::ignoreDomCall);
+      }
+    });
   }
 
 private:
+  jsi::Value ignoreDomCall(jsi::Runtime & /*runtime*/,
+                           const jsi::Value & /*thisValue*/,
+                           const jsi::Value * /*args*/, size_t /*count*/) {
+    return jsi::Value::undefined();
+  }
+
   void *_surface;
   int _width;
   int _height;

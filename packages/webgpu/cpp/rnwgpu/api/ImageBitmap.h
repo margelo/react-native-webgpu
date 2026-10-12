@@ -1,15 +1,13 @@
 #pragma once
 
-#include <memory>
+#include <cstdint>
+#include <utility>
 
-#include "webgpu/webgpu_cpp.h"
-
-#include "NativeObject.h"
+#include "HybridImageBitmapSpec.hpp"
 #include "PlatformContext.h"
+#include "WebGPUObject.hpp"
 
 namespace rnwgpu {
-
-namespace jsi = facebook::jsi;
 
 // Convert RGBA8 pixel data in place between straight and premultiplied alpha.
 // Uses the same integer rounding as the web reference polyfill in the test
@@ -38,40 +36,30 @@ inline void convertAlpha(uint8_t *data, size_t byteLength,
   }
 }
 
-class ImageBitmap : public NativeObject<ImageBitmap> {
+class ImageBitmap
+    : public WebGPUObject<margelo::nitro::webgpu::HybridImageBitmapSpec,
+                          false> {
 public:
-  static constexpr const char *CLASS_NAME = "ImageBitmap";
+  explicit ImageBitmap(ImageData imageData)
+      : HybridObject(TAG), _imageData(std::move(imageData)) {}
 
-  explicit ImageBitmap(ImageData &imageData)
-      : NativeObject(CLASS_NAME), _imageData(imageData) {}
-
-  size_t getWidth() { return _imageData.width; }
-
-  size_t getHeight() { return _imageData.height; }
-
-  void *getData() { return _imageData.data.data(); }
-
-  size_t getSize() { return _imageData.data.size(); }
-
-  // Whether the stored pixels are premultiplied by alpha. Used by
-  // copyExternalImageToTexture to decide whether a conversion to the
-  // destination's premultipliedAlpha representation is needed.
-  bool getPremultiplied() { return _imageData.premultiplied; }
-
-  void close() {
+  double getWidth() override { return _imageData.width; }
+  double getHeight() override { return _imageData.height; }
+  void close() override {
     _imageData.data.clear();
     _imageData.data.shrink_to_fit();
     _imageData.width = 0;
     _imageData.height = 0;
   }
 
-  static void definePrototype(jsi::Runtime &runtime, jsi::Object &prototype) {
-    installGetter(runtime, prototype, "width", &ImageBitmap::getWidth);
-    installGetter(runtime, prototype, "height", &ImageBitmap::getHeight);
-    installMethod(runtime, prototype, "close", &ImageBitmap::close);
-  }
+  void *getData() { return _imageData.data.data(); }
+  size_t getSize() { return _imageData.data.size(); }
+  bool getPremultiplied() { return _imageData.premultiplied; }
 
-  size_t getMemoryPressure() override { return getSize(); }
+protected:
+  size_t getExternalMemorySize() noexcept override {
+    return _imageData.data.size();
+  }
 
 private:
   ImageData _imageData;
