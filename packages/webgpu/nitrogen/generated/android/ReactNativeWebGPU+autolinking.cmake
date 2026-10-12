@@ -34,11 +34,17 @@ target_sources(
   ../nitrogen/generated/android/ReactNativeWebGPUOnLoad.cpp
   # Shared Nitrogen C++ sources
   ../nitrogen/generated/shared/c++/HybridCanvasSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUAdapterInfoSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUBindGroupSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUBindGroupLayoutSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUCommandBufferSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUCompilationInfoSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUComputePipelineSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUDeviceLostInfoSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUErrorSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUValidationErrorSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUOutOfMemoryErrorSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUInternalErrorSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUPipelineLayoutSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUQuerySetSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPURenderBundleSpec.cpp
@@ -46,7 +52,9 @@ target_sources(
   ../nitrogen/generated/shared/c++/HybridGPUSamplerSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUShaderModuleSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUSharedFenceSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUSupportedLimitsSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUTextureViewSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUUncapturedErrorEventSpec.cpp
   ../nitrogen/generated/shared/c++/HybridImageBitmapSpec.cpp
   # Android-specific Nitrogen C++ sources
   

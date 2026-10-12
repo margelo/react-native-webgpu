@@ -10,6 +10,7 @@
 #include <stdexcept>
 
 #include "GPUCompilationMessageType.hpp"
+#include "GPUDeviceLostReason.hpp"
 #include "GPUQueryType.hpp"
 
 #include "webgpu/webgpu_cpp.h"
@@ -39,6 +40,20 @@ inline margelo::nitro::webgpu::GPUQueryType fromWGPU(wgpu::QueryType type) {
     return GPUQueryType::TIMESTAMP;
   }
   throw std::invalid_argument("Unknown wgpu::QueryType");
+}
+
+inline margelo::nitro::webgpu::GPUDeviceLostReason
+fromWGPU(wgpu::DeviceLostReason reason) {
+  using margelo::nitro::webgpu::GPUDeviceLostReason;
+  switch (reason) {
+  case wgpu::DeviceLostReason::Destroyed:
+    return GPUDeviceLostReason::DESTROYED;
+  case wgpu::DeviceLostReason::Unknown:
+  case wgpu::DeviceLostReason::CallbackCancelled:
+  case wgpu::DeviceLostReason::FailedCreation:
+    return GPUDeviceLostReason::UNKNOWN;
+  }
+  throw std::invalid_argument("Unknown wgpu::DeviceLostReason");
 }
 
 } // namespace rnwgpu

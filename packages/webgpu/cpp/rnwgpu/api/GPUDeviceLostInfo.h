@@ -1,36 +1,26 @@
 #pragma once
 
 #include <string>
+#include <utility>
 
-#include "Unions.h"
-
-#include "NativeObject.h"
+#include "EnumMaps.h"
+#include "HybridGPUDeviceLostInfoSpec.hpp"
+#include "WebGPUObject.hpp"
 
 #include "webgpu/webgpu_cpp.h"
 
 namespace rnwgpu {
 
-namespace jsi = facebook::jsi;
-
-class GPUDeviceLostInfo : public NativeObject<GPUDeviceLostInfo> {
+class GPUDeviceLostInfo
+    : public WebGPUObject<margelo::nitro::webgpu::HybridGPUDeviceLostInfoSpec> {
 public:
-  static constexpr const char *CLASS_NAME = "GPUDeviceLostInfo";
+  GPUDeviceLostInfo(wgpu::DeviceLostReason reason, std::string message)
+      : HybridObject(TAG), _reason(reason), _message(std::move(message)) {}
 
-  explicit GPUDeviceLostInfo(wgpu::DeviceLostReason reason, std::string message)
-      : NativeObject(CLASS_NAME), _reason(reason), _message(message) {}
-
-public:
-  std::string getBrand() { return CLASS_NAME; }
-
-  wgpu::DeviceLostReason getReason() { return _reason; }
-  std::string getMessage() { return _message; }
-
-  static void definePrototype(jsi::Runtime &runtime, jsi::Object &prototype) {
-    installGetter(runtime, prototype, "__brand", &GPUDeviceLostInfo::getBrand);
-    installGetter(runtime, prototype, "reason", &GPUDeviceLostInfo::getReason);
-    installGetter(runtime, prototype, "message",
-                  &GPUDeviceLostInfo::getMessage);
+  margelo::nitro::webgpu::GPUDeviceLostReason getReason() override {
+    return fromWGPU(_reason);
   }
+  std::string getMessage() override { return _message; }
 
 private:
   wgpu::DeviceLostReason _reason;

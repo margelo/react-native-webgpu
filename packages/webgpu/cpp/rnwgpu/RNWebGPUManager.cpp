@@ -87,25 +87,17 @@ RNWebGPUManager::RNWebGPUManager(
   // Install constructors for instanceof support
   GPU::installConstructor(*_jsRuntime);
   GPUAdapter::installConstructor(*_jsRuntime);
-  GPUAdapterInfo::installConstructor(*_jsRuntime);
   GPUBuffer::installConstructor(*_jsRuntime);
   GPUCanvasContext::installConstructor(*_jsRuntime);
   GPUCommandEncoder::installConstructor(*_jsRuntime);
   GPUCompilationMessage::installConstructor(*_jsRuntime);
   GPUComputePassEncoder::installConstructor(*_jsRuntime);
   GPUDevice::installConstructor(*_jsRuntime);
-  GPUDeviceLostInfo::installConstructor(*_jsRuntime);
-  GPUError::installConstructor(*_jsRuntime);
   GPUExternalTexture::installConstructor(*_jsRuntime);
-  GPUInternalError::installConstructor(*_jsRuntime);
-  GPUOutOfMemoryError::installConstructor(*_jsRuntime);
-  GPUValidationError::installConstructor(*_jsRuntime);
-  GPUUncapturedErrorEvent::installConstructor(*_jsRuntime);
   GPUQueue::installConstructor(*_jsRuntime);
   GPURenderBundleEncoder::installConstructor(*_jsRuntime);
   GPURenderPassEncoder::installConstructor(*_jsRuntime);
   GPUSharedTextureMemory::installConstructor(*_jsRuntime);
-  GPUSupportedLimits::installConstructor(*_jsRuntime);
   GPUTexture::installConstructor(*_jsRuntime);
   VideoFrame::installConstructor(*_jsRuntime);
   VideoPlayer::installConstructor(*_jsRuntime);

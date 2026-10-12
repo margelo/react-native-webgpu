@@ -1,50 +1,28 @@
 #pragma once
 
 #include <string>
-#include <utility>
 
-#include "Unions.h"
-
-#include "NativeObject.h"
-
-#include "Convertors.h"
+#include "HybridGPUAdapterInfoSpec.hpp"
+#include "WebGPUObject.hpp"
 
 #include "webgpu/webgpu_cpp.h"
 
 namespace rnwgpu {
 
-namespace jsi = facebook::jsi;
-
-class GPUAdapterInfo : public NativeObject<GPUAdapterInfo> {
+class GPUAdapterInfo
+    : public WebGPUObject<margelo::nitro::webgpu::HybridGPUAdapterInfoSpec> {
 public:
-  static constexpr const char *CLASS_NAME = "GPUAdapterInfo";
-
   explicit GPUAdapterInfo(wgpu::AdapterInfo &info)
-      : NativeObject(CLASS_NAME), _vendor(info.vendor),
+      : HybridObject(TAG), _vendor(info.vendor),
         _architecture(info.architecture), _device(info.device),
         _description(info.description),
         _isFallbackAdapter(info.adapterType == wgpu::AdapterType::CPU) {}
 
-public:
-  std::string getBrand() { return CLASS_NAME; }
-
-  std::string getVendor() { return _vendor; }
-  std::string getArchitecture() { return _architecture; }
-  std::string getDevice() { return _device; }
-  std::string getDescription() { return _description; }
-  bool getIsFallbackAdapter() { return _isFallbackAdapter; }
-
-  static void definePrototype(jsi::Runtime &runtime, jsi::Object &prototype) {
-    installGetter(runtime, prototype, "__brand", &GPUAdapterInfo::getBrand);
-    installGetter(runtime, prototype, "vendor", &GPUAdapterInfo::getVendor);
-    installGetter(runtime, prototype, "architecture",
-                  &GPUAdapterInfo::getArchitecture);
-    installGetter(runtime, prototype, "device", &GPUAdapterInfo::getDevice);
-    installGetter(runtime, prototype, "description",
-                  &GPUAdapterInfo::getDescription);
-    installGetter(runtime, prototype, "isFallbackAdapter",
-                  &GPUAdapterInfo::getIsFallbackAdapter);
-  }
+  std::string getVendor() override { return _vendor; }
+  std::string getArchitecture() override { return _architecture; }
+  std::string getDevice() override { return _device; }
+  std::string getDescription() override { return _description; }
+  bool getIsFallbackAdapter() override { return _isFallbackAdapter; }
 
 private:
   std::string _vendor;
