@@ -33,103 +33,97 @@ namespace margelo::nitro::webgpu {
     R8SNORM      SWIFT_NAME(r8snorm) = 1,
     R8UINT      SWIFT_NAME(r8uint) = 2,
     R8SINT      SWIFT_NAME(r8sint) = 3,
-    R16UNORM      SWIFT_NAME(r16unorm) = 4,
-    R16SNORM      SWIFT_NAME(r16snorm) = 5,
-    R16UINT      SWIFT_NAME(r16uint) = 6,
-    R16SINT      SWIFT_NAME(r16sint) = 7,
-    R16FLOAT      SWIFT_NAME(r16float) = 8,
-    RG8UNORM      SWIFT_NAME(rg8unorm) = 9,
-    RG8SNORM      SWIFT_NAME(rg8snorm) = 10,
-    RG8UINT      SWIFT_NAME(rg8uint) = 11,
-    RG8SINT      SWIFT_NAME(rg8sint) = 12,
-    R32UINT      SWIFT_NAME(r32uint) = 13,
-    R32SINT      SWIFT_NAME(r32sint) = 14,
-    R32FLOAT      SWIFT_NAME(r32float) = 15,
-    RG16UNORM      SWIFT_NAME(rg16unorm) = 16,
-    RG16SNORM      SWIFT_NAME(rg16snorm) = 17,
-    RG16UINT      SWIFT_NAME(rg16uint) = 18,
-    RG16SINT      SWIFT_NAME(rg16sint) = 19,
-    RG16FLOAT      SWIFT_NAME(rg16float) = 20,
-    RGBA8UNORM      SWIFT_NAME(rgba8unorm) = 21,
-    RGBA8UNORM_SRGB      SWIFT_NAME(rgba8unormSrgb) = 22,
-    RGBA8SNORM      SWIFT_NAME(rgba8snorm) = 23,
-    RGBA8UINT      SWIFT_NAME(rgba8uint) = 24,
-    RGBA8SINT      SWIFT_NAME(rgba8sint) = 25,
-    BGRA8UNORM      SWIFT_NAME(bgra8unorm) = 26,
-    BGRA8UNORM_SRGB      SWIFT_NAME(bgra8unormSrgb) = 27,
-    RGB9E5UFLOAT      SWIFT_NAME(rgb9e5ufloat) = 28,
-    RGB10A2UINT      SWIFT_NAME(rgb10a2uint) = 29,
-    RGB10A2UNORM      SWIFT_NAME(rgb10a2unorm) = 30,
-    RG11B10UFLOAT      SWIFT_NAME(rg11b10ufloat) = 31,
-    RG32UINT      SWIFT_NAME(rg32uint) = 32,
-    RG32SINT      SWIFT_NAME(rg32sint) = 33,
-    RG32FLOAT      SWIFT_NAME(rg32float) = 34,
-    RGBA16UNORM      SWIFT_NAME(rgba16unorm) = 35,
-    RGBA16SNORM      SWIFT_NAME(rgba16snorm) = 36,
-    RGBA16UINT      SWIFT_NAME(rgba16uint) = 37,
-    RGBA16SINT      SWIFT_NAME(rgba16sint) = 38,
-    RGBA16FLOAT      SWIFT_NAME(rgba16float) = 39,
-    RGBA32UINT      SWIFT_NAME(rgba32uint) = 40,
-    RGBA32SINT      SWIFT_NAME(rgba32sint) = 41,
-    RGBA32FLOAT      SWIFT_NAME(rgba32float) = 42,
-    STENCIL8      SWIFT_NAME(stencil8) = 43,
-    DEPTH16UNORM      SWIFT_NAME(depth16unorm) = 44,
-    DEPTH24PLUS      SWIFT_NAME(depth24plus) = 45,
-    DEPTH24PLUS_STENCIL8      SWIFT_NAME(depth24plusStencil8) = 46,
-    DEPTH32FLOAT      SWIFT_NAME(depth32float) = 47,
-    DEPTH32FLOAT_STENCIL8      SWIFT_NAME(depth32floatStencil8) = 48,
-    BC1_RGBA_UNORM      SWIFT_NAME(bc1RgbaUnorm) = 49,
-    BC1_RGBA_UNORM_SRGB      SWIFT_NAME(bc1RgbaUnormSrgb) = 50,
-    BC2_RGBA_UNORM      SWIFT_NAME(bc2RgbaUnorm) = 51,
-    BC2_RGBA_UNORM_SRGB      SWIFT_NAME(bc2RgbaUnormSrgb) = 52,
-    BC3_RGBA_UNORM      SWIFT_NAME(bc3RgbaUnorm) = 53,
-    BC3_RGBA_UNORM_SRGB      SWIFT_NAME(bc3RgbaUnormSrgb) = 54,
-    BC4_R_UNORM      SWIFT_NAME(bc4RUnorm) = 55,
-    BC4_R_SNORM      SWIFT_NAME(bc4RSnorm) = 56,
-    BC5_RG_UNORM      SWIFT_NAME(bc5RgUnorm) = 57,
-    BC5_RG_SNORM      SWIFT_NAME(bc5RgSnorm) = 58,
-    BC6H_RGB_UFLOAT      SWIFT_NAME(bc6hRgbUfloat) = 59,
-    BC6H_RGB_FLOAT      SWIFT_NAME(bc6hRgbFloat) = 60,
-    BC7_RGBA_UNORM      SWIFT_NAME(bc7RgbaUnorm) = 61,
-    BC7_RGBA_UNORM_SRGB      SWIFT_NAME(bc7RgbaUnormSrgb) = 62,
-    ETC2_RGB8UNORM      SWIFT_NAME(etc2Rgb8unorm) = 63,
-    ETC2_RGB8UNORM_SRGB      SWIFT_NAME(etc2Rgb8unormSrgb) = 64,
-    ETC2_RGB8A1UNORM      SWIFT_NAME(etc2Rgb8a1unorm) = 65,
-    ETC2_RGB8A1UNORM_SRGB      SWIFT_NAME(etc2Rgb8a1unormSrgb) = 66,
-    ETC2_RGBA8UNORM      SWIFT_NAME(etc2Rgba8unorm) = 67,
-    ETC2_RGBA8UNORM_SRGB      SWIFT_NAME(etc2Rgba8unormSrgb) = 68,
-    EAC_R11UNORM      SWIFT_NAME(eacR11unorm) = 69,
-    EAC_R11SNORM      SWIFT_NAME(eacR11snorm) = 70,
-    EAC_RG11UNORM      SWIFT_NAME(eacRg11unorm) = 71,
-    EAC_RG11SNORM      SWIFT_NAME(eacRg11snorm) = 72,
-    ASTC_4X4_UNORM      SWIFT_NAME(astc4x4Unorm) = 73,
-    ASTC_4X4_UNORM_SRGB      SWIFT_NAME(astc4x4UnormSrgb) = 74,
-    ASTC_5X4_UNORM      SWIFT_NAME(astc5x4Unorm) = 75,
-    ASTC_5X4_UNORM_SRGB      SWIFT_NAME(astc5x4UnormSrgb) = 76,
-    ASTC_5X5_UNORM      SWIFT_NAME(astc5x5Unorm) = 77,
-    ASTC_5X5_UNORM_SRGB      SWIFT_NAME(astc5x5UnormSrgb) = 78,
-    ASTC_6X5_UNORM      SWIFT_NAME(astc6x5Unorm) = 79,
-    ASTC_6X5_UNORM_SRGB      SWIFT_NAME(astc6x5UnormSrgb) = 80,
-    ASTC_6X6_UNORM      SWIFT_NAME(astc6x6Unorm) = 81,
-    ASTC_6X6_UNORM_SRGB      SWIFT_NAME(astc6x6UnormSrgb) = 82,
-    ASTC_8X5_UNORM      SWIFT_NAME(astc8x5Unorm) = 83,
-    ASTC_8X5_UNORM_SRGB      SWIFT_NAME(astc8x5UnormSrgb) = 84,
-    ASTC_8X6_UNORM      SWIFT_NAME(astc8x6Unorm) = 85,
-    ASTC_8X6_UNORM_SRGB      SWIFT_NAME(astc8x6UnormSrgb) = 86,
-    ASTC_8X8_UNORM      SWIFT_NAME(astc8x8Unorm) = 87,
-    ASTC_8X8_UNORM_SRGB      SWIFT_NAME(astc8x8UnormSrgb) = 88,
-    ASTC_10X5_UNORM      SWIFT_NAME(astc10x5Unorm) = 89,
-    ASTC_10X5_UNORM_SRGB      SWIFT_NAME(astc10x5UnormSrgb) = 90,
-    ASTC_10X6_UNORM      SWIFT_NAME(astc10x6Unorm) = 91,
-    ASTC_10X6_UNORM_SRGB      SWIFT_NAME(astc10x6UnormSrgb) = 92,
-    ASTC_10X8_UNORM      SWIFT_NAME(astc10x8Unorm) = 93,
-    ASTC_10X8_UNORM_SRGB      SWIFT_NAME(astc10x8UnormSrgb) = 94,
-    ASTC_10X10_UNORM      SWIFT_NAME(astc10x10Unorm) = 95,
-    ASTC_10X10_UNORM_SRGB      SWIFT_NAME(astc10x10UnormSrgb) = 96,
-    ASTC_12X10_UNORM      SWIFT_NAME(astc12x10Unorm) = 97,
-    ASTC_12X10_UNORM_SRGB      SWIFT_NAME(astc12x10UnormSrgb) = 98,
-    ASTC_12X12_UNORM      SWIFT_NAME(astc12x12Unorm) = 99,
-    ASTC_12X12_UNORM_SRGB      SWIFT_NAME(astc12x12UnormSrgb) = 100,
+    R16UINT      SWIFT_NAME(r16uint) = 4,
+    R16SINT      SWIFT_NAME(r16sint) = 5,
+    R16FLOAT      SWIFT_NAME(r16float) = 6,
+    RG8UNORM      SWIFT_NAME(rg8unorm) = 7,
+    RG8SNORM      SWIFT_NAME(rg8snorm) = 8,
+    RG8UINT      SWIFT_NAME(rg8uint) = 9,
+    RG8SINT      SWIFT_NAME(rg8sint) = 10,
+    R32UINT      SWIFT_NAME(r32uint) = 11,
+    R32SINT      SWIFT_NAME(r32sint) = 12,
+    R32FLOAT      SWIFT_NAME(r32float) = 13,
+    RG16UINT      SWIFT_NAME(rg16uint) = 14,
+    RG16SINT      SWIFT_NAME(rg16sint) = 15,
+    RG16FLOAT      SWIFT_NAME(rg16float) = 16,
+    RGBA8UNORM      SWIFT_NAME(rgba8unorm) = 17,
+    RGBA8UNORM_SRGB      SWIFT_NAME(rgba8unormSrgb) = 18,
+    RGBA8SNORM      SWIFT_NAME(rgba8snorm) = 19,
+    RGBA8UINT      SWIFT_NAME(rgba8uint) = 20,
+    RGBA8SINT      SWIFT_NAME(rgba8sint) = 21,
+    BGRA8UNORM      SWIFT_NAME(bgra8unorm) = 22,
+    BGRA8UNORM_SRGB      SWIFT_NAME(bgra8unormSrgb) = 23,
+    RGB9E5UFLOAT      SWIFT_NAME(rgb9e5ufloat) = 24,
+    RGB10A2UINT      SWIFT_NAME(rgb10a2uint) = 25,
+    RGB10A2UNORM      SWIFT_NAME(rgb10a2unorm) = 26,
+    RG11B10UFLOAT      SWIFT_NAME(rg11b10ufloat) = 27,
+    RG32UINT      SWIFT_NAME(rg32uint) = 28,
+    RG32SINT      SWIFT_NAME(rg32sint) = 29,
+    RG32FLOAT      SWIFT_NAME(rg32float) = 30,
+    RGBA16UINT      SWIFT_NAME(rgba16uint) = 31,
+    RGBA16SINT      SWIFT_NAME(rgba16sint) = 32,
+    RGBA16FLOAT      SWIFT_NAME(rgba16float) = 33,
+    RGBA32UINT      SWIFT_NAME(rgba32uint) = 34,
+    RGBA32SINT      SWIFT_NAME(rgba32sint) = 35,
+    RGBA32FLOAT      SWIFT_NAME(rgba32float) = 36,
+    STENCIL8      SWIFT_NAME(stencil8) = 37,
+    DEPTH16UNORM      SWIFT_NAME(depth16unorm) = 38,
+    DEPTH24PLUS      SWIFT_NAME(depth24plus) = 39,
+    DEPTH24PLUS_STENCIL8      SWIFT_NAME(depth24plusStencil8) = 40,
+    DEPTH32FLOAT      SWIFT_NAME(depth32float) = 41,
+    DEPTH32FLOAT_STENCIL8      SWIFT_NAME(depth32floatStencil8) = 42,
+    BC1_RGBA_UNORM      SWIFT_NAME(bc1RgbaUnorm) = 43,
+    BC1_RGBA_UNORM_SRGB      SWIFT_NAME(bc1RgbaUnormSrgb) = 44,
+    BC2_RGBA_UNORM      SWIFT_NAME(bc2RgbaUnorm) = 45,
+    BC2_RGBA_UNORM_SRGB      SWIFT_NAME(bc2RgbaUnormSrgb) = 46,
+    BC3_RGBA_UNORM      SWIFT_NAME(bc3RgbaUnorm) = 47,
+    BC3_RGBA_UNORM_SRGB      SWIFT_NAME(bc3RgbaUnormSrgb) = 48,
+    BC4_R_UNORM      SWIFT_NAME(bc4RUnorm) = 49,
+    BC4_R_SNORM      SWIFT_NAME(bc4RSnorm) = 50,
+    BC5_RG_UNORM      SWIFT_NAME(bc5RgUnorm) = 51,
+    BC5_RG_SNORM      SWIFT_NAME(bc5RgSnorm) = 52,
+    BC6H_RGB_UFLOAT      SWIFT_NAME(bc6hRgbUfloat) = 53,
+    BC6H_RGB_FLOAT      SWIFT_NAME(bc6hRgbFloat) = 54,
+    BC7_RGBA_UNORM      SWIFT_NAME(bc7RgbaUnorm) = 55,
+    BC7_RGBA_UNORM_SRGB      SWIFT_NAME(bc7RgbaUnormSrgb) = 56,
+    ETC2_RGB8UNORM      SWIFT_NAME(etc2Rgb8unorm) = 57,
+    ETC2_RGB8UNORM_SRGB      SWIFT_NAME(etc2Rgb8unormSrgb) = 58,
+    ETC2_RGB8A1UNORM      SWIFT_NAME(etc2Rgb8a1unorm) = 59,
+    ETC2_RGB8A1UNORM_SRGB      SWIFT_NAME(etc2Rgb8a1unormSrgb) = 60,
+    ETC2_RGBA8UNORM      SWIFT_NAME(etc2Rgba8unorm) = 61,
+    ETC2_RGBA8UNORM_SRGB      SWIFT_NAME(etc2Rgba8unormSrgb) = 62,
+    EAC_R11UNORM      SWIFT_NAME(eacR11unorm) = 63,
+    EAC_R11SNORM      SWIFT_NAME(eacR11snorm) = 64,
+    EAC_RG11UNORM      SWIFT_NAME(eacRg11unorm) = 65,
+    EAC_RG11SNORM      SWIFT_NAME(eacRg11snorm) = 66,
+    ASTC_4X4_UNORM      SWIFT_NAME(astc4x4Unorm) = 67,
+    ASTC_4X4_UNORM_SRGB      SWIFT_NAME(astc4x4UnormSrgb) = 68,
+    ASTC_5X4_UNORM      SWIFT_NAME(astc5x4Unorm) = 69,
+    ASTC_5X4_UNORM_SRGB      SWIFT_NAME(astc5x4UnormSrgb) = 70,
+    ASTC_5X5_UNORM      SWIFT_NAME(astc5x5Unorm) = 71,
+    ASTC_5X5_UNORM_SRGB      SWIFT_NAME(astc5x5UnormSrgb) = 72,
+    ASTC_6X5_UNORM      SWIFT_NAME(astc6x5Unorm) = 73,
+    ASTC_6X5_UNORM_SRGB      SWIFT_NAME(astc6x5UnormSrgb) = 74,
+    ASTC_6X6_UNORM      SWIFT_NAME(astc6x6Unorm) = 75,
+    ASTC_6X6_UNORM_SRGB      SWIFT_NAME(astc6x6UnormSrgb) = 76,
+    ASTC_8X5_UNORM      SWIFT_NAME(astc8x5Unorm) = 77,
+    ASTC_8X5_UNORM_SRGB      SWIFT_NAME(astc8x5UnormSrgb) = 78,
+    ASTC_8X6_UNORM      SWIFT_NAME(astc8x6Unorm) = 79,
+    ASTC_8X6_UNORM_SRGB      SWIFT_NAME(astc8x6UnormSrgb) = 80,
+    ASTC_8X8_UNORM      SWIFT_NAME(astc8x8Unorm) = 81,
+    ASTC_8X8_UNORM_SRGB      SWIFT_NAME(astc8x8UnormSrgb) = 82,
+    ASTC_10X5_UNORM      SWIFT_NAME(astc10x5Unorm) = 83,
+    ASTC_10X5_UNORM_SRGB      SWIFT_NAME(astc10x5UnormSrgb) = 84,
+    ASTC_10X6_UNORM      SWIFT_NAME(astc10x6Unorm) = 85,
+    ASTC_10X6_UNORM_SRGB      SWIFT_NAME(astc10x6UnormSrgb) = 86,
+    ASTC_10X8_UNORM      SWIFT_NAME(astc10x8Unorm) = 87,
+    ASTC_10X8_UNORM_SRGB      SWIFT_NAME(astc10x8UnormSrgb) = 88,
+    ASTC_10X10_UNORM      SWIFT_NAME(astc10x10Unorm) = 89,
+    ASTC_10X10_UNORM_SRGB      SWIFT_NAME(astc10x10UnormSrgb) = 90,
+    ASTC_12X10_UNORM      SWIFT_NAME(astc12x10Unorm) = 91,
+    ASTC_12X10_UNORM_SRGB      SWIFT_NAME(astc12x10UnormSrgb) = 92,
+    ASTC_12X12_UNORM      SWIFT_NAME(astc12x12Unorm) = 93,
+    ASTC_12X12_UNORM_SRGB      SWIFT_NAME(astc12x12UnormSrgb) = 94,
   } CLOSED_ENUM;
 
 } // namespace margelo::nitro::webgpu
@@ -146,8 +140,6 @@ namespace margelo::nitro {
         case hashString("r8snorm"): return margelo::nitro::webgpu::GPUTextureFormat::R8SNORM;
         case hashString("r8uint"): return margelo::nitro::webgpu::GPUTextureFormat::R8UINT;
         case hashString("r8sint"): return margelo::nitro::webgpu::GPUTextureFormat::R8SINT;
-        case hashString("r16unorm"): return margelo::nitro::webgpu::GPUTextureFormat::R16UNORM;
-        case hashString("r16snorm"): return margelo::nitro::webgpu::GPUTextureFormat::R16SNORM;
         case hashString("r16uint"): return margelo::nitro::webgpu::GPUTextureFormat::R16UINT;
         case hashString("r16sint"): return margelo::nitro::webgpu::GPUTextureFormat::R16SINT;
         case hashString("r16float"): return margelo::nitro::webgpu::GPUTextureFormat::R16FLOAT;
@@ -158,8 +150,6 @@ namespace margelo::nitro {
         case hashString("r32uint"): return margelo::nitro::webgpu::GPUTextureFormat::R32UINT;
         case hashString("r32sint"): return margelo::nitro::webgpu::GPUTextureFormat::R32SINT;
         case hashString("r32float"): return margelo::nitro::webgpu::GPUTextureFormat::R32FLOAT;
-        case hashString("rg16unorm"): return margelo::nitro::webgpu::GPUTextureFormat::RG16UNORM;
-        case hashString("rg16snorm"): return margelo::nitro::webgpu::GPUTextureFormat::RG16SNORM;
         case hashString("rg16uint"): return margelo::nitro::webgpu::GPUTextureFormat::RG16UINT;
         case hashString("rg16sint"): return margelo::nitro::webgpu::GPUTextureFormat::RG16SINT;
         case hashString("rg16float"): return margelo::nitro::webgpu::GPUTextureFormat::RG16FLOAT;
@@ -177,8 +167,6 @@ namespace margelo::nitro {
         case hashString("rg32uint"): return margelo::nitro::webgpu::GPUTextureFormat::RG32UINT;
         case hashString("rg32sint"): return margelo::nitro::webgpu::GPUTextureFormat::RG32SINT;
         case hashString("rg32float"): return margelo::nitro::webgpu::GPUTextureFormat::RG32FLOAT;
-        case hashString("rgba16unorm"): return margelo::nitro::webgpu::GPUTextureFormat::RGBA16UNORM;
-        case hashString("rgba16snorm"): return margelo::nitro::webgpu::GPUTextureFormat::RGBA16SNORM;
         case hashString("rgba16uint"): return margelo::nitro::webgpu::GPUTextureFormat::RGBA16UINT;
         case hashString("rgba16sint"): return margelo::nitro::webgpu::GPUTextureFormat::RGBA16SINT;
         case hashString("rgba16float"): return margelo::nitro::webgpu::GPUTextureFormat::RGBA16FLOAT;
@@ -253,8 +241,6 @@ namespace margelo::nitro {
         case margelo::nitro::webgpu::GPUTextureFormat::R8SNORM: return JSIConverter<std::string>::toJSI(runtime, "r8snorm");
         case margelo::nitro::webgpu::GPUTextureFormat::R8UINT: return JSIConverter<std::string>::toJSI(runtime, "r8uint");
         case margelo::nitro::webgpu::GPUTextureFormat::R8SINT: return JSIConverter<std::string>::toJSI(runtime, "r8sint");
-        case margelo::nitro::webgpu::GPUTextureFormat::R16UNORM: return JSIConverter<std::string>::toJSI(runtime, "r16unorm");
-        case margelo::nitro::webgpu::GPUTextureFormat::R16SNORM: return JSIConverter<std::string>::toJSI(runtime, "r16snorm");
         case margelo::nitro::webgpu::GPUTextureFormat::R16UINT: return JSIConverter<std::string>::toJSI(runtime, "r16uint");
         case margelo::nitro::webgpu::GPUTextureFormat::R16SINT: return JSIConverter<std::string>::toJSI(runtime, "r16sint");
         case margelo::nitro::webgpu::GPUTextureFormat::R16FLOAT: return JSIConverter<std::string>::toJSI(runtime, "r16float");
@@ -265,8 +251,6 @@ namespace margelo::nitro {
         case margelo::nitro::webgpu::GPUTextureFormat::R32UINT: return JSIConverter<std::string>::toJSI(runtime, "r32uint");
         case margelo::nitro::webgpu::GPUTextureFormat::R32SINT: return JSIConverter<std::string>::toJSI(runtime, "r32sint");
         case margelo::nitro::webgpu::GPUTextureFormat::R32FLOAT: return JSIConverter<std::string>::toJSI(runtime, "r32float");
-        case margelo::nitro::webgpu::GPUTextureFormat::RG16UNORM: return JSIConverter<std::string>::toJSI(runtime, "rg16unorm");
-        case margelo::nitro::webgpu::GPUTextureFormat::RG16SNORM: return JSIConverter<std::string>::toJSI(runtime, "rg16snorm");
         case margelo::nitro::webgpu::GPUTextureFormat::RG16UINT: return JSIConverter<std::string>::toJSI(runtime, "rg16uint");
         case margelo::nitro::webgpu::GPUTextureFormat::RG16SINT: return JSIConverter<std::string>::toJSI(runtime, "rg16sint");
         case margelo::nitro::webgpu::GPUTextureFormat::RG16FLOAT: return JSIConverter<std::string>::toJSI(runtime, "rg16float");
@@ -284,8 +268,6 @@ namespace margelo::nitro {
         case margelo::nitro::webgpu::GPUTextureFormat::RG32UINT: return JSIConverter<std::string>::toJSI(runtime, "rg32uint");
         case margelo::nitro::webgpu::GPUTextureFormat::RG32SINT: return JSIConverter<std::string>::toJSI(runtime, "rg32sint");
         case margelo::nitro::webgpu::GPUTextureFormat::RG32FLOAT: return JSIConverter<std::string>::toJSI(runtime, "rg32float");
-        case margelo::nitro::webgpu::GPUTextureFormat::RGBA16UNORM: return JSIConverter<std::string>::toJSI(runtime, "rgba16unorm");
-        case margelo::nitro::webgpu::GPUTextureFormat::RGBA16SNORM: return JSIConverter<std::string>::toJSI(runtime, "rgba16snorm");
         case margelo::nitro::webgpu::GPUTextureFormat::RGBA16UINT: return JSIConverter<std::string>::toJSI(runtime, "rgba16uint");
         case margelo::nitro::webgpu::GPUTextureFormat::RGBA16SINT: return JSIConverter<std::string>::toJSI(runtime, "rgba16sint");
         case margelo::nitro::webgpu::GPUTextureFormat::RGBA16FLOAT: return JSIConverter<std::string>::toJSI(runtime, "rgba16float");
@@ -365,8 +347,6 @@ namespace margelo::nitro {
         case hashString("r8snorm"):
         case hashString("r8uint"):
         case hashString("r8sint"):
-        case hashString("r16unorm"):
-        case hashString("r16snorm"):
         case hashString("r16uint"):
         case hashString("r16sint"):
         case hashString("r16float"):
@@ -377,8 +357,6 @@ namespace margelo::nitro {
         case hashString("r32uint"):
         case hashString("r32sint"):
         case hashString("r32float"):
-        case hashString("rg16unorm"):
-        case hashString("rg16snorm"):
         case hashString("rg16uint"):
         case hashString("rg16sint"):
         case hashString("rg16float"):
@@ -396,8 +374,6 @@ namespace margelo::nitro {
         case hashString("rg32uint"):
         case hashString("rg32sint"):
         case hashString("rg32float"):
-        case hashString("rgba16unorm"):
-        case hashString("rgba16snorm"):
         case hashString("rgba16uint"):
         case hashString("rgba16sint"):
         case hashString("rgba16float"):
