@@ -17,7 +17,7 @@ class Time {
     this.delta = delta;
   }
 
-  toBuffer(): Uint8Array {
+  toBuffer(): Uint8Array<ArrayBuffer> {
     const buffer = new Uint8Array(12);
     const view = new DataView(buffer.buffer);
 
@@ -38,7 +38,7 @@ class Mouse {
     this.click = click;
   }
 
-  toBuffer(): Uint8Array {
+  toBuffer(): Uint8Array<ArrayBuffer> {
     const buffer = new Uint8Array(12);
     const view = new DataView(buffer.buffer);
 
@@ -51,13 +51,13 @@ class Mouse {
 }
 
 class BitArray {
-  private bits: Uint8Array;
+  private bits: Uint8Array<ArrayBuffer>;
 
   constructor(size: number) {
     this.bits = new Uint8Array(Math.ceil(size / 8));
   }
 
-  toBuffer(): Uint8Array {
+  toBuffer(): Uint8Array<ArrayBuffer> {
     return this.bits;
   }
 

@@ -2,14 +2,21 @@ import { useEffect, useState } from "react";
 import { Image } from "react-native";
 import "react-native-webgpu";
 
+export const resolveAssetUri = (mod: number) => {
+  const asset = Image.resolveAssetSource(mod);
+  if (asset == null) {
+    throw new Error(`Failed to resolve asset: ${mod}`);
+  }
+  return asset.uri;
+};
+
 export const fetchAsset = async (mod: number) => {
-  const response = await fetch(Image.resolveAssetSource(mod).uri);
+  const response = await fetch(resolveAssetUri(mod));
   return response;
 };
 
 export const decodeImage = async (mod: number) => {
-  const { uri } = Image.resolveAssetSource(mod);
-  const response = await fetch(uri);
+  const response = await fetch(resolveAssetUri(mod));
   const blob = await response.blob();
   const image = await createImageBitmap(blob);
   return image;

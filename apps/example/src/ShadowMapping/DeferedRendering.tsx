@@ -473,7 +473,13 @@ export function DeferedRendering() {
 
     // Move the model so it's centered.
     const modelMatrix = mat4.translation([0, -45, 0]);
-    device.queue.writeBuffer(modelUniformBuffer, 0, modelMatrix);
+    device.queue.writeBuffer(
+      modelUniformBuffer,
+      0,
+      modelMatrix.buffer,
+      modelMatrix.byteOffset,
+      modelMatrix.byteLength,
+    );
     const invertTransposeModelMatrix = mat4.invert(modelMatrix);
     mat4.transpose(invertTransposeModelMatrix, invertTransposeModelMatrix);
     const normalModelData = invertTransposeModelMatrix;

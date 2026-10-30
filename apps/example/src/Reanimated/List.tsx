@@ -16,10 +16,6 @@ export const examples = [
     title: "🔀 Dedicated Thread",
   },
   {
-    screen: "FrameProcessor",
-    title: "📷 Frame Processor",
-  },
-  {
     screen: "AsyncBufferUIThread",
     title: "🧵 Async Buffer (UI)",
   },

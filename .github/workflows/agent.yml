@@ -75,7 +75,7 @@ jobs:
       E2E_PORT: 4246
       IOS_SIMULATOR: webgpu-agent
       DERIVED_DATA: ${{ github.workspace }}/../derived-data/webgpu-agent-ios
-      BUNDLE_ID: com.microsoft.ReactTestApp
+      BUNDLE_ID: com.reactnativewebgpu.example
       # The screenshots and logs the agent works from, uploaded at the end.
       AGENT_OUTPUT: ${{ github.workspace }}/agent-output
     steps:
@@ -107,9 +107,9 @@ jobs:
       - name: Build packages
         run: yarn turbo run build --filter='./packages/*'
 
-      - name: Install CocoaPods
+      - name: Set up Swift Package Manager
         working-directory: apps/example/ios
-        run: pod install
+        run: npx react-native spm update
 
       - name: Ensure Metro and test server ports are free
         run: |
@@ -155,7 +155,7 @@ jobs:
         working-directory: apps/example/ios
         run: |
           set -o pipefail && xcodebuild \
-            -workspace example.xcworkspace \
+            -project Example.xcodeproj \
             -scheme Example \
             -configuration Debug \
             -sdk iphonesimulator \
@@ -163,8 +163,6 @@ jobs:
             -derivedDataPath "$DERIVED_DATA" \
             COMPILER_INDEX_STORE_ENABLE=NO \
             DISABLE_MANUAL_TARGET_ORDER_BUILD_WARNING=YES \
-            RCT_METRO_PORT=$METRO_PORT \
-            -disableAutomaticPackageResolution \
             build | tee xcodebuild.log | xcpretty || {
               grep -E "error:|fatal error" xcodebuild.log | sort -u | head -50
               exit 1
@@ -176,10 +174,11 @@ jobs:
       # is the state the agent starts from, for the artifact.
       - name: Install and launch app on simulator
         run: |
-          xcrun simctl install "$IOS_SIMULATOR_UDID" "$DERIVED_DATA/Build/Products/Debug-iphonesimulator/ReactTestApp.app"
+          xcrun simctl install "$IOS_SIMULATOR_UDID" "$DERIVED_DATA/Build/Products/Debug-iphonesimulator/Example.app"
           curl -sf --max-time 900 -o /dev/null \
             "http://localhost:$METRO_PORT/index.bundle?platform=ios&dev=true&lazy=true&minify=false"
-          xcrun simctl launch "$IOS_SIMULATOR_UDID" "$BUNDLE_ID"
+          xcrun simctl launch "$IOS_SIMULATOR_UDID" "$BUNDLE_ID" \
+            -RCT_jsLocation "localhost:$METRO_PORT"
           sleep 20
           xcrun simctl io "$IOS_SIMULATOR_UDID" screenshot "$AGENT_OUTPUT/launch.png"
 
@@ -389,9 +388,7 @@ jobs:
           ok=0; for i in 1 2 3 4 5; do adb wait-for-device install -r apps/example/android/app/build/outputs/apk/debug/app-debug.apk && ok=1 && break; echo "adb install failed (attempt $i)"; sleep 5; done; [ "$ok" = 1 ]
           curl -sf --max-time 900 -o /dev/null \
             "http://localhost:$METRO_PORT/index.bundle?platform=android&dev=true&lazy=true&minify=false"
-          # The activity keeps react-native-test-app's own package name: the
-          # application id is the example's, the Java namespace is not.
-          adb shell am start -W -n "$ANDROID_PACKAGE/com.microsoft.reacttestapp.MainActivity"
+          adb shell am start -W -n "$ANDROID_PACKAGE/.MainActivity"
           sleep 20
           adb exec-out screencap -p > "$AGENT_OUTPUT/launch.png"
 

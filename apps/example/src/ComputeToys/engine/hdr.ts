@@ -2,7 +2,7 @@
 // HDR format loading from https://enkimute.github.io/hdrpng.js/
 
 export function loadHDR(data: Uint8Array): {
-  rgbe: Uint8Array;
+  rgbe: Uint8Array<ArrayBuffer>;
   width: number;
   height: number;
 } {

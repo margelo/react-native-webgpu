@@ -50,7 +50,6 @@ import { DeviceDestroyBeforeDetach } from "./Diagnostics/DeviceDestroyBeforeDeta
 import { StorageBufferVertices } from "./StorageBufferVertices";
 import { SharedTextureMemory } from "./SharedTextureMemory";
 import { ImportExternalTexture } from "./ImportExternalTexture";
-import { VisionCamera } from "./VisionCamera";
 import { SixteenBitTextures } from "./SixteenBitTextures";
 import { ViewSnapshot } from "./ViewSnapshot";
 
@@ -110,7 +109,6 @@ const linking: LinkingOptions<Routes> = {
       StorageBufferVertices: "storage-buffer-vertices",
       SharedTextureMemory: "shared-texture-memory",
       ImportExternalTexture: "import-external-texture",
-      VisionCamera: "vision-camera",
       SixteenBitTextures: "sixteen-bit-textures",
       ViewSnapshot: "view-snapshot",
     },
@@ -214,7 +212,6 @@ function App() {
             name="ImportExternalTexture"
             component={ImportExternalTexture}
           />
-          <Stack.Screen name="VisionCamera" component={VisionCamera} />
           <Stack.Screen
             name="SixteenBitTextures"
             component={SixteenBitTextures}

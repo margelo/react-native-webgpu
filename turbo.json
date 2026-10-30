@@ -25,48 +25,18 @@
       ]
     },
     "build:ios": {
-      "dependsOn": ["pod:install:ios"],
       "outputs": [
-        "apps/*/ios/build",
-        "apps/*/ios/Pods"
+        "apps/*/ios/build"
       ],
       "inputs": [
         "**/package.json",
-        "**/*.podspec",
+        "packages/webgpu/Package.swift",
         "packages/webgpu/cpp/**",
         "packages/webgpu/apple/**",
         "apps/*/package.json",
         "apps/*/ios",
-        "!apps/*/ios/build",
-        "!apps/*/ios/Pods"
+        "!apps/*/ios/build"
       ]
-    },
-    "build:macos": {
-      "dependsOn": ["pod:install:macos"],
-      "outputs": [
-        "apps/*/macos/build",
-        "apps/*/macos/Pods"
-      ],
-      "inputs": [
-        "**/package.json",
-        "**/*.podspec",
-        "packages/webgpu/cpp/**",
-        "packages/webgpu/apple/**",
-        "apps/*/package.json",
-        "apps/*/macos",
-        "!apps/*/macos/build",
-        "!apps/*/macos/Pods"
-      ]
-    },
-    "pod:install:ios": {
-      "cache": false,
-      "inputs": ["**/ios/Podfile", "**/ios/Podfile.lock"],
-      "outputs": ["**/ios/Pods/**"]
-    },
-    "pod:install:macos": {
-      "cache": false,
-      "inputs": ["**/ios/Podfile", "**/ios/Podfile.lock"],
-      "outputs": ["**/ios/Pods/**"]
     },
     "lint": {},
     "tsc": {},

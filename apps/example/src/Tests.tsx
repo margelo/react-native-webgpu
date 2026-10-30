@@ -3,7 +3,6 @@ import {
   Dimensions,
   Text,
   View,
-  Image,
   PixelRatio,
   findNodeHandle,
 } from "react-native";
@@ -30,6 +29,7 @@ import { useClient } from "./useClient";
 import { cubeVertexArray } from "./components/cube";
 import { redFragWGSL, triangleVertWGSL } from "./Triangle/triangle";
 import type { AssetProps } from "./components/useAssets";
+import { resolveAssetUri } from "./components/useAssets";
 import { Texture } from "./components/Texture";
 import { workletDeviceStress } from "./components/workletDeviceStress";
 import { workletSerialization } from "./components/workletSerialization";
@@ -48,7 +48,7 @@ export const Tests = ({ assets: { di3D, saturn, moon } }: AssetProps) => {
   const [setupError, setSetupError] = useState<string | null>(null);
   // A fixed native view the drawElementImageToTexture spec snapshots: four
   // 32x32pt solid quadrants (red, lime, blue, white), 64x64pt in total.
-  const probeRef = useRef<View>(null);
+  const probeRef = useRef<React.ComponentRef<typeof View>>(null);
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -117,8 +117,7 @@ export const Tests = ({ assets: { di3D, saturn, moon } }: AssetProps) => {
                 gpu: navigator.gpu,
                 device,
                 urls: {
-                  fTexture: Image.resolveAssetSource(require("./assets/f.png"))
-                    .uri,
+                  fTexture: resolveAssetUri(require("./assets/f.png")),
                 },
                 assets: {
                   cubeVertexArray,

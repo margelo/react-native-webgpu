@@ -136,10 +136,6 @@ export const examples = [
     title: "🎬 Import External Texture",
   },
   {
-    screen: "VisionCamera",
-    title: "📷 VisionCamera integration",
-  },
-  {
     screen: "SixteenBitTextures",
     title: "🎨 16bits Textures",
   },

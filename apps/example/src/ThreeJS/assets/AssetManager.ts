@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as THREE from "three";
-import { Image } from "react-native";
 import { useEffect, useState } from "react";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader";
 import { HDRLoader } from "three/addons/loaders/HDRLoader";
+
+import { resolveAssetUri } from "../../components/useAssets";
 
 export interface GLTF {
   animations: THREE.AnimationClip[];
@@ -24,7 +25,7 @@ export interface GLTF {
 }
 
 export const resolveAsset = (mod: ReturnType<typeof require>) => {
-  return Image.resolveAssetSource(mod).uri;
+  return resolveAssetUri(mod);
 };
 
 export const debugManager = new THREE.LoadingManager();

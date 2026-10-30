@@ -10,7 +10,7 @@ import { solidColorLitWGSL, wireframeWGSL } from "./Shaders";
 import { modelData } from "./models";
 import { randColor, randElement } from "./utils";
 
-type TypedArrayView = Float32Array | Uint32Array;
+type TypedArrayView = Float32Array<ArrayBuffer> | Uint32Array<ArrayBuffer>;
 
 function createBufferWithData(
   device: GPUDevice,
@@ -45,7 +45,10 @@ const settings = {
 
 function createVertexAndIndexBuffer(
   device: GPUDevice,
-  { vertices, indices }: { vertices: Float32Array; indices: Uint32Array },
+  {
+    vertices,
+    indices,
+  }: { vertices: Float32Array<ArrayBuffer>; indices: Uint32Array<ArrayBuffer> },
 ): Model {
   const vertexBuffer = createBufferWithData(
     device,
@@ -206,9 +209,9 @@ export const Wireframe = () => {
     type ObjectInfo = {
       worldViewProjectionMatrixValue: Float32Array;
       worldMatrixValue: Float32Array;
-      uniformValues: Float32Array;
+      uniformValues: Float32Array<ArrayBuffer>;
       uniformBuffer: GPUBuffer;
-      lineUniformValues: Float32Array;
+      lineUniformValues: Float32Array<ArrayBuffer>;
       lineUniformBuffer: GPUBuffer;
       litBindGroup: GPUBindGroup;
       wireframeBindGroups: GPUBindGroup[];
