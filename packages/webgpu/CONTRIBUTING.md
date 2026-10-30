@@ -49,15 +49,11 @@ CocoaPods stays the default. `Package.swift` is additive: SwiftPM ignores the
 podspec, and CocoaPods ignores `Package.swift`.
 
 SwiftPM support requires **React Native 0.87 or newer**; earlier releases ship
-no `scripts/spm`. `apps/example` is on an older version, so it cannot exercise
-this path. The harness is `spm-example/` at the repo root, deliberately outside
-the yarn workspace so its React Native does not collide with the workspace's.
-Its [README](../../spm-example/README.md) covers the details; the short form is:
+no `scripts/spm`. `apps/example` builds through SwiftPM on iOS:
 
 ```sh
-cd spm-example && npm install
-cd ios && npx react-native spm update
-xcodebuild -project SpmExample.xcodeproj -scheme SpmExample \
+cd apps/example/ios && npx react-native spm update
+xcodebuild -project Example.xcodeproj -scheme Example \
   -configuration Debug -sdk iphonesimulator \
   -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
 ```
