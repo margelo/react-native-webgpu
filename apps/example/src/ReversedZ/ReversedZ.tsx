@@ -540,11 +540,19 @@ export const ReversedZ = () => {
       viewProjectionMatrix,
     );
 
-    device.queue.writeBuffer(cameraMatrixBuffer, 0, viewProjectionMatrix);
+    device.queue.writeBuffer(
+      cameraMatrixBuffer,
+      0,
+      viewProjectionMatrix.buffer,
+      viewProjectionMatrix.byteOffset,
+      viewProjectionMatrix.byteLength,
+    );
     device.queue.writeBuffer(
       cameraMatrixReversedDepthBuffer,
       0,
-      reversedRangeViewProjectionMatrix,
+      reversedRangeViewProjectionMatrix.buffer,
+      reversedRangeViewProjectionMatrix.byteOffset,
+      reversedRangeViewProjectionMatrix.byteLength,
     );
 
     const tmpMat4 = mat4.create();

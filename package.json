@@ -6,7 +6,7 @@
     "apps/*"
   ],
   "resolutions": {
-    "@types/react": "^18.2.44",
+    "@types/react": "^19.2.0",
     "@webgpu/types": "^0.1.42",
     "@react-three/fiber@^9.4.0": "patch:@react-three/fiber@npm%3A9.4.0#./.yarn/patches/@react-three-fiber-npm-9.4.0-77fe8ee9bd.patch"
   },
@@ -15,12 +15,10 @@
     "lint": "turbo run lint",
     "tsc": "turbo run tsc && yarn workspace expo-webgpu-template typecheck",
     "build:ios": "turbo run build:ios",
-    "build:macos": "turbo run build:macos",
     "build:android": "turbo run build:android",
     "build": "turbo run build",
     "build:docs": "turbo run build:docs",
-    "pod:install": "turbo run pod:install",
-    "reset": "rm -rf node_modules && find apps packages -maxdepth 2 -type d -name node_modules -prune -exec rm -rf '{}' ';' && yarn install && rm -rf apps/example/ios/Pods apps/example/ios/Podfile.lock && pod install --project-directory=apps/example/ios"
+    "reset": "rm -rf node_modules && find apps packages -maxdepth 2 -type d -name node_modules -prune -exec rm -rf '{}' ';' && yarn install && cd apps/example/ios && npx react-native spm update"
   },
   "devDependencies": {
     "@types/react-native-web": "^0.19.2",

@@ -7,5 +7,13 @@
       "three/addons/*": ["../../node_modules/@types/three/examples/jsm/*"]
     },
     "types": ["@webgpu/types", "@types/node"]
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "**/Pods/**",
+    "ios/build",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
+  ]
 }

@@ -6,7 +6,8 @@
 .gradle/
 .idea/
 .vs/
-.xcode.env
+.xcode.env.local
+!debug.keystore
 **/Pods/**
 build/
 dist/*
