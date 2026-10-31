@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "classes": {
+    "GPUSampler": {
+      "android": {
+        "allowMultipleImplementations": true,
+        "language": "c++"
+      },
+      "apple": {
+        "allowMultipleImplementations": true,
+        "language": "c++"
+      }
+    }
+  }
+}

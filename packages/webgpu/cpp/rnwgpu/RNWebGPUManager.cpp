@@ -57,6 +57,18 @@
 
 namespace rnwgpu {
 
+namespace {
+
+// Puts the class Nitro built for this runtime on the global, as
+// NativeObject::installConstructor does for the legacy classes.
+template <typename Spec> void installNitroConstructor(jsi::Runtime &runtime) {
+  runtime.global().setProperty(
+      runtime, Spec::Class::name,
+      Spec::Class::get()->getOrCreateJSClass(runtime).constructor);
+}
+
+} // namespace
+
 RNWebGPUManager::RNWebGPUManager(
     jsi::Runtime *jsRuntime,
     std::shared_ptr<facebook::react::CallInvoker> jsCallInvoker,
@@ -131,7 +143,8 @@ void RNWebGPUManager::installConstructors(jsi::Runtime &runtime) {
   GPURenderBundleEncoder::installConstructor(runtime);
   GPURenderPassEncoder::installConstructor(runtime);
   GPURenderPipeline::installConstructor(runtime);
-  GPUSampler::installConstructor(runtime);
+  installNitroConstructor<margelo::nitro::webgpu::HybridGPUSamplerSpec>(
+      runtime);
   GPUSharedFence::installConstructor(runtime);
   GPUSharedTextureMemory::installConstructor(runtime);
   GPUShaderModule::installConstructor(runtime);

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://nitro.margelo.com/nitro.schema.json",
+  "environment": "react-native",
+  "cxxNamespace": ["webgpu"],
+  "apple": {
+    "moduleName": "ReactNativeWebGPU"
+  },
+  "android": {
+    "namespace": ["webgpu"],
+    "cxxLibName": "ReactNativeWebGPU"
+  },
+  "ignorePaths": ["**/node_modules", "lib"]
+}

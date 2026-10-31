@@ -20,6 +20,8 @@
 #include <android/native_window_jni.h>
 #include <webgpu/webgpu_cpp.h>
 
+#include <ReactNativeWebGPU/private/ReactNativeWebGPUOnLoad.hpp>
+
 #include "AndroidPlatformContext.h"
 #include "GPUCanvasContext.h"
 #include "RNWebGPUManager.h"
@@ -28,6 +30,11 @@
 #define LOG_TAG "WebGPUModule"
 
 std::shared_ptr<rnwgpu::RNWebGPUManager> manager;
+
+JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *) {
+  return facebook::jni::initialize(
+      vm, [] { margelo::nitro::webgpu::registerAllNatives(); });
+}
 
 extern "C" JNIEXPORT void JNICALL Java_com_webgpu_WebGPUModule_initializeNative(
     JNIEnv *env, jobject thiz, jlong jsRuntime, jobject jsCallInvokerHolder,

@@ -1,3 +1,6 @@
+// Initializes Nitro before the native module creates any HybridObject.
+import "react-native-nitro-modules";
+
 import WebGPUModule from "../NativeWebGPUModule";
 
 // Installs the native module: the RNWebGPU global, and the WebGPU globals of
