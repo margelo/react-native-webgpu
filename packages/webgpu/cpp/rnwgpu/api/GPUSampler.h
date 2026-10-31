@@ -2,36 +2,25 @@
 
 #include <string>
 
-#include "Unions.h"
+#include <ReactNativeWebGPU/HybridGPUSamplerSpec.hpp>
 
-#include "NativeObject.h"
+#include "WebGPUObject.hpp"
 
 #include "webgpu/webgpu_cpp.h"
 
 namespace rnwgpu {
 
-namespace jsi = facebook::jsi;
-
-class GPUSampler : public NativeObject<GPUSampler> {
+class GPUSampler
+    : public WebGPUObject<margelo::nitro::webgpu::HybridGPUSamplerSpec> {
 public:
-  static constexpr const char *CLASS_NAME = "GPUSampler";
-
   explicit GPUSampler(wgpu::Sampler instance, std::string label)
-      : NativeObject(CLASS_NAME), _instance(instance), _label(label) {}
+      : _instance(instance), _label(label) {}
 
 public:
-  std::string getBrand() { return CLASS_NAME; }
-
-  std::string getLabel() { return _label; }
-  void setLabel(const std::string &label) {
+  std::string getLabel() override { return _label; }
+  void setLabel(const std::string &label) override {
     _label = label;
     _instance.SetLabel(_label.c_str());
-  }
-
-  static void definePrototype(jsi::Runtime &runtime, jsi::Object &prototype) {
-    installGetter(runtime, prototype, "__brand", &GPUSampler::getBrand);
-    installGetterSetter(runtime, prototype, "label", &GPUSampler::getLabel,
-                        &GPUSampler::setLabel);
   }
 
   inline const wgpu::Sampler get() { return _instance; }
