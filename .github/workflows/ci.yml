@@ -233,7 +233,7 @@ jobs:
             case "$file" in
               packages/webgpu/Package.swift|packages/webgpu/package.json|packages/webgpu/react-native.config.js|\
               packages/webgpu/apple/*|packages/webgpu/cpp/*|packages/webgpu/scripts/*|\
-              spm-example/*|package.json|yarn.lock|\
+              apps/example/ios/*|apps/example/package.json|package.json|yarn.lock|\
               .github/workflows/ci.yml|.github/actions/setup/*)
                 echo "$file"
                 run=true
@@ -270,19 +270,11 @@ jobs:
       - name: Install xcpretty
         run: command -v xcpretty >/dev/null || sudo gem install xcpretty --no-document
 
-      # spm-example sits outside the yarn workspace so its React Native can
-      # differ from the one apps/example pins: SwiftPM autolinking needs
-      # React Native 0.87+. It ships no lockfile; react and react-native are
-      # pinned exactly in its package.json.
-      - name: Install spm-example dependencies
-        working-directory: spm-example
-        run: npm install
-
       # The .xcodeproj is committed already injected, so this refreshes the
       # injection, runs codegen and downloads the React Native artifacts. It
       # exits 2 if a linked library ships no Package.swift.
-      - name: Set up Swift Package Manager (spm-example)
-        working-directory: spm-example/ios
+      - name: Set up Swift Package Manager
+        working-directory: apps/example/ios
         run: npx react-native spm update
 
       # No CocoaPods and no -disableAutomaticPackageResolution here (unlike
@@ -290,13 +282,13 @@ jobs:
       # its own Package.swift, and its WebGPUDawn binaryTarget resolves to a
       # remote release zip + checksum with nothing cached ahead of time: this
       # build's whole point is exercising that download-and-verify step.
-      - name: Build spm-example for iOS
-        working-directory: spm-example/ios
+      - name: Build example for iOS
+        working-directory: apps/example/ios
         run: |
           set -o pipefail
           xcodebuild \
-            -project SpmExample.xcodeproj \
-            -scheme SpmExample \
+            -project Example.xcodeproj \
+            -scheme Example \
             -configuration Debug \
             -sdk iphonesimulator \
             -destination "generic/platform=iOS Simulator" \
