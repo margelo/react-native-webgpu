@@ -53,6 +53,7 @@ target_sources(
   ../nitrogen/generated/shared/c++/HybridGPUSamplerSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUShaderModuleSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUSharedFenceSpec.cpp
+  ../nitrogen/generated/shared/c++/HybridGPUSharedTextureMemorySpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUSupportedLimitsSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUTextureSpec.cpp
   ../nitrogen/generated/shared/c++/HybridGPUTextureViewSpec.cpp

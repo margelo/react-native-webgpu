@@ -31,10 +31,10 @@ namespace margelo::nitro::webgpu {
   enum class GPUTextureViewDimension {
     _1D      SWIFT_NAME(1d) = 0,
     _2D      SWIFT_NAME(2d) = 1,
-    _2D_ARRAY      SWIFT_NAME(2dArray) = 2,
-    CUBE      SWIFT_NAME(cube) = 3,
-    CUBE_ARRAY      SWIFT_NAME(cubeArray) = 4,
-    _3D      SWIFT_NAME(3d) = 5,
+    _3D      SWIFT_NAME(3d) = 2,
+    _2D_ARRAY      SWIFT_NAME(2dArray) = 3,
+    CUBE      SWIFT_NAME(cube) = 4,
+    CUBE_ARRAY      SWIFT_NAME(cubeArray) = 5,
   } CLOSED_ENUM;
 
 } // namespace margelo::nitro::webgpu
@@ -49,10 +49,10 @@ namespace margelo::nitro {
       switch (hashString(unionValue.c_str(), unionValue.size())) {
         case hashString("1d"): return margelo::nitro::webgpu::GPUTextureViewDimension::_1D;
         case hashString("2d"): return margelo::nitro::webgpu::GPUTextureViewDimension::_2D;
+        case hashString("3d"): return margelo::nitro::webgpu::GPUTextureViewDimension::_3D;
         case hashString("2d-array"): return margelo::nitro::webgpu::GPUTextureViewDimension::_2D_ARRAY;
         case hashString("cube"): return margelo::nitro::webgpu::GPUTextureViewDimension::CUBE;
         case hashString("cube-array"): return margelo::nitro::webgpu::GPUTextureViewDimension::CUBE_ARRAY;
-        case hashString("3d"): return margelo::nitro::webgpu::GPUTextureViewDimension::_3D;
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert \"" + unionValue + "\" to enum GPUTextureViewDimension - invalid value!");
       }
@@ -61,10 +61,10 @@ namespace margelo::nitro {
       switch (arg) {
         case margelo::nitro::webgpu::GPUTextureViewDimension::_1D: return JSIConverter<std::string>::toJSI(runtime, "1d");
         case margelo::nitro::webgpu::GPUTextureViewDimension::_2D: return JSIConverter<std::string>::toJSI(runtime, "2d");
+        case margelo::nitro::webgpu::GPUTextureViewDimension::_3D: return JSIConverter<std::string>::toJSI(runtime, "3d");
         case margelo::nitro::webgpu::GPUTextureViewDimension::_2D_ARRAY: return JSIConverter<std::string>::toJSI(runtime, "2d-array");
         case margelo::nitro::webgpu::GPUTextureViewDimension::CUBE: return JSIConverter<std::string>::toJSI(runtime, "cube");
         case margelo::nitro::webgpu::GPUTextureViewDimension::CUBE_ARRAY: return JSIConverter<std::string>::toJSI(runtime, "cube-array");
-        case margelo::nitro::webgpu::GPUTextureViewDimension::_3D: return JSIConverter<std::string>::toJSI(runtime, "3d");
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert GPUTextureViewDimension to JS - invalid value: "
                                     + std::to_string(static_cast<int>(arg)) + "!");
@@ -78,10 +78,10 @@ namespace margelo::nitro {
       switch (hashString(unionValue.c_str(), unionValue.size())) {
         case hashString("1d"):
         case hashString("2d"):
+        case hashString("3d"):
         case hashString("2d-array"):
         case hashString("cube"):
         case hashString("cube-array"):
-        case hashString("3d"):
           return true;
         default:
           return false;
